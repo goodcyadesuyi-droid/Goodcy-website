@@ -1,6 +1,4 @@
-import { getSignOutUrl } from "@workos-inc/authkit-nextjs";
-import { NextResponse } from "next/server";
+import { signOut } from "@workos-inc/authkit-nextjs";
 export async function GET() {
-  const url = await getSignOutUrl();
-  return NextResponse.redirect(url);
+  await signOut({ returnTo: process.env.NEXT_PUBLIC_APP_URL || "/" });
 }
