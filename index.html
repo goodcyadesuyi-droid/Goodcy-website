@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#08111e">
+<meta name="theme-color" content="#08111e">\n<link rel="manifest" href="manifest.webmanifest">\n<link rel="apple-touch-icon" href="icon-192.svg">
 <meta name="description" content="Mamba FX Academy — independent beginner-friendly forex education and MetaTrader 5 learning resources.">
 <title>Mamba FX Academy | Trading Learning Hub</title>
 <style>
@@ -87,6 +87,6 @@ function authNotice(provider){alert(provider+' sign-in is displayed but not conn
 function saveProfile(){const n=document.getElementById('profileName').value.trim()||'Mamba FX Member';const b=document.getElementById('profileAbout').value.trim()||'Learning. Practising. Improving.';try{localStorage.setItem('mfx_profile',JSON.stringify({n,b}));}catch(e){}document.getElementById('profileDisplay').textContent=n;document.getElementById('profileBio').textContent=b;document.getElementById('avatarInitial').textContent=n.charAt(0).toUpperCase();alert('Profile preview saved on this device.');}
 function postStory(){const t=document.getElementById('storyText').value.trim();if(!t){alert('Write a short story first.');return;}document.getElementById('storyPreview').textContent='Story preview: '+t+' — visible only in this browser preview.';}
 function showInstallHelp(){alert('On iPhone: open this page in Safari, tap Share, choose Add to Home Screen, then tap Add.');}
-document.addEventListener('DOMContentLoaded',()=>{try{const p=JSON.parse(localStorage.getItem('mfx_profile')||'null');if(p){document.getElementById('profileDisplay').textContent=p.n;document.getElementById('profileBio').textContent=p.b;document.getElementById('avatarInitial').textContent=p.n.charAt(0).toUpperCase();document.getElementById('profileName').value=p.n;document.getElementById('profileAbout').value=p.b;}}catch(e){}const input=document.getElementById('videoUpload');if(input)input.addEventListener('change',()=>{const f=input.files&&input.files[0];if(!f)return;const v=document.getElementById('videoPreview');v.src=URL.createObjectURL(f);v.hidden=false;document.getElementById('videoStatus').textContent='Local preview only: '+f.name;});});
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}\ndocument.addEventListener('DOMContentLoaded',()=>{try{const p=JSON.parse(localStorage.getItem('mfx_profile')||'null');if(p){document.getElementById('profileDisplay').textContent=p.n;document.getElementById('profileBio').textContent=p.b;document.getElementById('avatarInitial').textContent=p.n.charAt(0).toUpperCase();document.getElementById('profileName').value=p.n;document.getElementById('profileAbout').value=p.b;}}catch(e){}const input=document.getElementById('videoUpload');if(input)input.addEventListener('change',()=>{const f=input.files&&input.files[0];if(!f)return;const v=document.getElementById('videoPreview');v.src=URL.createObjectURL(f);v.hidden=false;document.getElementById('videoStatus').textContent='Local preview only: '+f.name;});});
 </script>
 \n</body></html>
