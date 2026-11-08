@@ -118,7 +118,7 @@ body{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
 <a href="#help-trade" data-nav="help-trade"><span class="nav-icon">↗</span><span>Help Trade</span></a>
 </nav>
 
-<footer><div class="wrap">© 2026 Mamba FX Academy · Learning content only · No financial advice.</div></footer>
+<footer><div class="wrap">© 2026 Mamba FX Academy · Learning content only · No financial advice. · <a href="./admin.html">Owner payment dashboard setup</a></div></footer>
 
 <script>
 function makeStudyPlan(){const pair=document.getElementById('aiPair').value.trim()||'your selected market';const tf=document.getElementById('aiTimeframe').value;const bias=document.getElementById('aiBias').value;const view={unclear:'Do not guess the direction. Mark recent swing highs and lows first.',up:'Check whether higher highs and higher lows are clear; wait for confirmation rather than chasing price.',down:'Check whether lower highs and lower lows are clear; avoid selling only because a candle is red.',range:'Mark the top and bottom of the range; be careful around false breakouts.'};document.getElementById('aiResult').textContent='MAMBA FX STUDY PLAN\\nMarket: '+pair+'\\nTimeframe: '+tf+'\\n\\n1. Describe the current structure: '+view[bias]+'\\n2. Mark the nearest support and resistance zones.\\n3. Check whether a major news event could affect volatility.\\n4. Decide where your idea is invalidated before any demo entry.\\n5. Calculate hypothetical risk and record the result in your journal.\\n\\nThis is an educational checklist based only on your selections—not live AI market analysis, a trade signal or financial advice.';}
