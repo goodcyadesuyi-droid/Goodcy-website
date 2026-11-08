@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#08111e">\n<link rel="manifest" href="manifest.webmanifest">\n<link rel="apple-touch-icon" href="icon-192.svg">
+<meta name="theme-color" content="#08111e">\n<link rel="manifest" href="manifest.webmanifest">\n<link rel="icon" type="image/svg+xml" href="icon-192.svg"><link rel="apple-touch-icon" href="icon-192.svg">
 <meta name="description" content="Mamba FX Academy — independent beginner-friendly forex education and MetaTrader 5 learning resources.">
 <title>Mamba FX Academy | Trading Learning Hub</title>
 <style>
@@ -54,14 +54,17 @@ body.onboarding #firstProfile{display:block}
 .first-card h1{font-size:clamp(30px,7vw,44px);margin:10px 0}.first-card .field{margin:7px 0 16px}
 .app-section{scroll-margin-top:80px}
 
+
+.brand-logo{display:block;width:176px;max-width:48vw;height:auto;object-fit:contain}.first-card .brand-logo{width:min(270px,100%);max-width:100%;margin:0 auto 12px}.community-brand-logo{width:116px;height:116px;object-fit:contain;display:block;margin:0 0 14px;border-radius:18px;background:#050907;border:1px solid #5d4a20}.app-icon{overflow:hidden;padding:0;background:#050907;border:1px solid #d5ad43}.app-icon img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:720px){.brand-logo{width:150px}}
 </style>
 </head>
 <body class="signed-out">
 
-<div id="signInScreen" aria-label="Sign in to Mamba FX Academy"><div class="first-card"><div class="brand">MAMBA <span style="color:#f2b84b">FX</span> ACADEMY</div><div class="eyebrow" style="margin-top:25px">Welcome back</div><h1>Sign in to <em style="color:#f2b84b">continue</em></h1><p class="lead" style="font-size:15px">Enter your email address, or choose Google. Secure sign-in will be activated when the account service is connected.</p><label for="signInEmail">Email address</label><input class="field" id="signInEmail" type="email" placeholder="you@example.com" autocomplete="email"><button class="action-btn" style="width:100%;margin-top:8px" type="button" onclick="continueWithEmail()">Continue with email</button><div style="text-align:center;color:#a9b8ca;margin:14px">OR</div><button class="auth-btn" style="width:100%" type="button" onclick="authNotice('Google')">G&nbsp; Continue with Google</button><p class="muted-note" style="margin-top:14px">Preview mode: email entry does not verify identity or create a secure account yet.</p></div></div>
+<div id="signInScreen" aria-label="Sign in to Mamba FX Academy"><div class="first-card"><img class="brand-logo" src="./assets/mamba-fx-logo.webp" alt="Mamba FX Academy logo"><div class="eyebrow" style="margin-top:25px">Welcome back</div><h1>Sign in to <em style="color:#f2b84b">continue</em></h1><p class="lead" style="font-size:15px">Enter your email address, or choose Google. Secure sign-in will be activated when the account service is connected.</p><label for="signInEmail">Email address</label><input class="field" id="signInEmail" type="email" placeholder="you@example.com" autocomplete="email"><button class="action-btn" style="width:100%;margin-top:8px" type="button" onclick="continueWithEmail()">Continue with email</button><div style="text-align:center;color:#a9b8ca;margin:14px">OR</div><button class="auth-btn" style="width:100%" type="button" onclick="authNotice('Google')">G&nbsp; Continue with Google</button><p class="muted-note" style="margin-top:14px">Preview mode: email entry does not verify identity or create a secure account yet.</p></div></div>
 <div id="firstProfile" aria-label="Create your profile after sign-in">
   <div class="first-card">
-    <div class="brand">MAMBA <span style="color:#f2b84b">FX</span> ACADEMY</div>
+    <img class="brand-logo" src="./assets/mamba-fx-logo.webp" alt="Mamba FX Academy logo">
     <div class="eyebrow" style="margin-top:25px">Welcome · Set up your profile</div>
     <h1>Create your <em style="color:#f2b84b">profile</em></h1>
     <p class="lead" style="font-size:15px">Set up your learner profile. Your Home page and separate app areas will appear after you continue.</p>
@@ -101,7 +104,7 @@ body.onboarding #firstProfile{display:block}
 </div><p style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="https://www.metatrader5.com/" target="_blank" rel="noopener">Open official MT5 website</a><a class="btn" href="https://web.metatrader.app/" target="_blank" rel="noopener">Launch MT5 Web Demo</a><a class="btn secondary" href="https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5" target="_blank" rel="noopener">Find MT5 for Android</a></p></div></section>
 
 <section id="members" class="band"><div class="wrap">
-<span id="profile"></span><h2 class="section-title">Mamba FX community</h2>
+<span id="profile"></span><img class="community-brand-logo" src="./assets/mamba-fx-icon.svg" alt="Mamba FX Academy emblem"><h2 class="section-title">Mamba FX community</h2>
 <p class="sub">Your member space for a profile, friend connections, stories and video posts. This first version is a visual preview; community data is not yet shared with other members.</p>
 <div class="social-card" style="margin-bottom:16px"><h3>Sign in or create an account</h3>
 <div class="auth-row">
@@ -126,7 +129,7 @@ body.onboarding #firstProfile{display:block}
 <div class="ai-console"><h3 style="margin-top:0">Build your market-study checklist</h3><label for="aiPair">Currency pair or instrument</label><input class="field" id="aiPair" placeholder="Example: EUR/USD" maxlength="20"><label for="aiTimeframe">Chart timeframe</label><select class="field" id="aiTimeframe"><option>15 minutes</option><option>1 hour</option><option>4 hours</option><option>Daily</option></select><label for="aiBias">What do you currently observe?</label><select class="field" id="aiBias"><option value="unclear">I'm not sure yet</option><option value="up">Price seems to be trending upward</option><option value="down">Price seems to be trending downward</option><option value="range">Price seems to be moving sideways</option></select><button class="action-btn" type="button" onclick="makeStudyPlan()">Generate my study checklist</button><div class="ai-result" id="aiResult" aria-live="polite">Your educational checklist will appear here. Start by identifying the trend, key levels and the risk before considering any demo trade.</div></div></div></section>
 <section id="ai-academy" class="wrap"><div class="premium"><div class="eyebrow">Premium learning membership</div><h2 class="section-title">Mamba FX AI Trading Academy</h2><p class="sub">A premium education area for structured trading lessons, AI-assisted learning explanations, chart-study exercises and risk-management practice. AI tools are educational—not guaranteed trading signals or financial advice.</p><div class="premium-price">$10,000 <span style="font-size:15px;color:var(--muted);font-weight:600">membership price</span></div><p class="muted-note">Requested membership price: $10,000. Secure checkout is not connected yet, so no card details should be entered on this website until a verified payment provider is configured.</p><a class="btn" href="#payment">View payment information</a></div></section>
 <section class="band"><div class="wrap"><h2 class="section-title">Your trading app</h2><div class="grid">
-<a class="card app-tile" href="https://web.metatrader.app/" target="_blank" rel="noopener"><span class="app-icon">FX</span><span><strong>Mamba FX Trading</strong><small class="muted-note" style="display:block">Open MT5 Web Demo</small></span></a>
+<a class="card app-tile" href="https://web.metatrader.app/" target="_blank" rel="noopener"><span class="app-icon"><img src="./assets/mamba-fx-icon.svg" alt="Mamba FX app icon"></span><span><strong>Mamba FX Trading</strong><small class="muted-note" style="display:block">Open MT5 Web Demo</small></span></a>
 <a class="card app-tile" href="https://www.metatrader5.com/" target="_blank" rel="noopener"><span class="app-icon">MT5</span><span><strong>MetaTrader 5</strong><small class="muted-note" style="display:block">Official trading platform</small></span></a>
 <a class="card app-tile" href="#ai-academy"><span class="app-icon">AI</span><span><strong>AI Academy</strong><small class="muted-note" style="display:block">Premium learning · $10,000</small></span></a>
 </div></div></section>
