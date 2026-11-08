@@ -39,9 +39,33 @@ body{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
 .bottom-nav a.create .nav-icon{width:30px;height:30px;display:grid;place-items:center;background:#f2b84b;color:#101722;border-radius:10px;font-size:24px;font-weight:900}
 .trade-gate{background:linear-gradient(145deg,#101d2e,#201a0e);border:1px solid #80612a;border-radius:18px;padding:22px}.gate-price{font-size:clamp(36px,8vw,54px);font-weight:950;color:#f2b84b;line-height:1.1}.trade-actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.trade-actions a{flex:1;text-align:center;min-width:170px}.trade-login-note{font-size:13px;color:var(--muted);border-left:3px solid var(--gold);padding:10px 13px;background:#0b1420}
 @media(min-width:900px){.bottom-nav{left:50%;right:auto;transform:translateX(-50%);width:min(680px,96%);border:1px solid #34445a;border-bottom:0;border-radius:16px 16px 0 0}}
+
+/* First-open onboarding: profile first, then separate app areas */
+body.onboarding{padding-bottom:0}
+body.onboarding header,body.onboarding main,body.onboarding .bottom-nav,body.onboarding footer{display:none!important}
+#firstProfile{display:none;min-height:100svh;padding:34px 0;background:radial-gradient(ellipse at 80% 5%,#263b4b 0,transparent 42%),#08111e}
+body.onboarding #firstProfile{display:block}
+.first-card{width:min(520px,92%);margin:5vh auto;background:#101e30;border:1px solid #34445a;border-radius:20px;padding:26px;box-shadow:0 20px 60px #0007}
+.first-card h1{font-size:clamp(30px,7vw,44px);margin:10px 0}.first-card .field{margin:7px 0 16px}
+.app-section{scroll-margin-top:80px}
+
 </style>
 </head>
-<body>
+<body class="onboarding">
+
+<div id="firstProfile" aria-label="Create your profile first">
+  <div class="first-card">
+    <div class="brand">MAMBA <span style="color:#f2b84b">FX</span> ACADEMY</div>
+    <div class="eyebrow" style="margin-top:25px">Welcome · Step 1 of 1</div>
+    <h1>Create your <em style="color:#f2b84b">profile</em></h1>
+    <p class="lead" style="font-size:15px">Set up your learner profile first. Your Home page and the other app areas will appear after you continue.</p>
+    <label for="firstName">Your display name</label><input class="field" id="firstName" placeholder="Enter your name" maxlength="40" autocomplete="name">
+    <label for="firstBio">Short introduction (optional)</label><input class="field" id="firstBio" placeholder="I'm learning forex trading..." maxlength="100">
+    <button class="action-btn" style="width:100%;margin-top:8px" type="button" onclick="finishFirstProfile()">Create profile and continue</button>
+    <p class="muted-note" style="margin-top:14px">This creates a profile preview on this device. Secure account sign-in and cloud profiles will be connected separately.</p>
+  </div>
+</div>
+
 <header><div class="wrap nav"><div class="brand">MAMBA <span>FX</span> ACADEMY</div><nav><a href="#learn">Learn</a><a href="#videos">Videos</a><a href="#charts">Charts</a><a href="#mt5">MT5</a><a href="#risk">Risk</a><a href="#members">Profile</a><a href="#ai-academy">AI Academy</a><a href="#system">Our system</a><a href="#install">Install</a></nav></div></header>
 <main id="home">
 <section class="hero"><div class="wrap"><div class="eyebrow">Your mobile trading learning hub</div><h1>Learn trading.<br><em>Practise with discipline.</em></h1><p class="lead">Beginner-friendly forex lessons, chart-reading practice and a guided introduction to MetaTrader 5. Start with learning and a demo account—not real-money risk.</p><div class="actions"><a class="btn" href="#videos">Explore lessons</a><a class="btn secondary" href="#charts">Explore demo chart</a></div><div class="feature-strip"><div><strong>Learn</strong><span>Step-by-step forex foundations</span></div><div><strong>Practise</strong><span>Charts and demo account guidance</span></div><div><strong>Improve</strong><span>Risk awareness and trading journal</span></div></div></div></section>
@@ -123,9 +147,11 @@ body{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
 <script>
 function makeStudyPlan(){const pair=document.getElementById('aiPair').value.trim()||'your selected market';const tf=document.getElementById('aiTimeframe').value;const bias=document.getElementById('aiBias').value;const view={unclear:'Do not guess the direction. Mark recent swing highs and lows first.',up:'Check whether higher highs and higher lows are clear; wait for confirmation rather than chasing price.',down:'Check whether lower highs and lower lows are clear; avoid selling only because a candle is red.',range:'Mark the top and bottom of the range; be careful around false breakouts.'};document.getElementById('aiResult').textContent='MAMBA FX STUDY PLAN\\nMarket: '+pair+'\\nTimeframe: '+tf+'\\n\\n1. Describe the current structure: '+view[bias]+'\\n2. Mark the nearest support and resistance zones.\\n3. Check whether a major news event could affect volatility.\\n4. Decide where your idea is invalidated before any demo entry.\\n5. Calculate hypothetical risk and record the result in your journal.\\n\\nThis is an educational checklist based only on your selections—not live AI market analysis, a trade signal or financial advice.';}
 function authNotice(provider){alert(provider+' sign-in is displayed but not connected yet. Secure provider registration and backend setup are required before this can authenticate members.');}
-function saveProfile(){const n=document.getElementById('profileName').value.trim()||'Mamba FX Member';const b=document.getElementById('profileAbout').value.trim()||'Learning. Practising. Improving.';try{localStorage.setItem('mfx_profile',JSON.stringify({n,b}));}catch(e){}document.getElementById('profileDisplay').textContent=n;document.getElementById('profileBio').textContent=b;document.getElementById('avatarInitial').textContent=n.charAt(0).toUpperCase();alert('Profile preview saved on this device.');}
+function applyProfile(n,b){document.getElementById('profileDisplay').textContent=n;document.getElementById('profileBio').textContent=b;document.getElementById('avatarInitial').textContent=n.charAt(0).toUpperCase();document.getElementById('profileName').value=n;document.getElementById('profileAbout').value=b;}
+function finishFirstProfile(){const n=document.getElementById('firstName').value.trim();const b=document.getElementById('firstBio').value.trim()||'Learning. Practising. Improving.';if(!n){alert('Please enter your display name to create your profile.');return;}try{localStorage.setItem('mfx_profile',JSON.stringify({n,b}));localStorage.setItem('mfx_profile_created','yes');}catch(e){}applyProfile(n,b);document.body.classList.remove('onboarding');document.getElementById('home').scrollIntoView(); }
+function saveProfile(){const n=document.getElementById('profileName').value.trim()||'Mamba FX Member';const b=document.getElementById('profileAbout').value.trim()||'Learning. Practising. Improving.';try{localStorage.setItem('mfx_profile',JSON.stringify({n,b}));}catch(e){}applyProfile(n,b);alert('Profile preview saved on this device.');}
 function postStory(){const t=document.getElementById('storyText').value.trim();if(!t){alert('Write a short story first.');return;}document.getElementById('storyPreview').textContent='Story preview: '+t+' — visible only in this browser preview.';}
 function showInstallHelp(){alert('On iPhone: open this page in Safari, tap Share, choose Add to Home Screen, then tap Add.');}
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}\ndocument.addEventListener('DOMContentLoaded',()=>{try{const p=JSON.parse(localStorage.getItem('mfx_profile')||'null');if(p){document.getElementById('profileDisplay').textContent=p.n;document.getElementById('profileBio').textContent=p.b;document.getElementById('avatarInitial').textContent=p.n.charAt(0).toUpperCase();document.getElementById('profileName').value=p.n;document.getElementById('profileAbout').value=p.b;}}catch(e){}const input=document.getElementById('videoUpload');if(input)input.addEventListener('change',()=>{const f=input.files&&input.files[0];if(!f)return;const v=document.getElementById('videoPreview');v.src=URL.createObjectURL(f);v.hidden=false;document.getElementById('videoStatus').textContent='Local preview only: '+f.name;});});
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}\ndocument.addEventListener('DOMContentLoaded',()=>{try{const p=JSON.parse(localStorage.getItem('mfx_profile')||'null');if(p){applyProfile(p.n,p.b);document.getElementById('firstName').value=p.n;document.getElementById('firstBio').value=p.b;if(localStorage.getItem('mfx_profile_created')==='yes')document.body.classList.remove('onboarding');}}catch(e){}const input=document.getElementById('videoUpload');if(input)input.addEventListener('change',()=>{const f=input.files&&input.files[0];if(!f)return;const v=document.getElementById('videoPreview');v.src=URL.createObjectURL(f);v.hidden=false;document.getElementById('videoStatus').textContent='Local preview only: '+f.name;});});
 </script>
 \n</body></html>
