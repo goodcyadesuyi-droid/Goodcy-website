@@ -67,3 +67,28 @@
 .public-risk{max-width:850px;padding:0 0 28px;color:#75837a;font-size:10px;line-height:1.7}
 @media(max-width:800px){.public-site{padding:0 5%}.public-nav{gap:14px}.public-nav a{font-size:11px}.public-hero{grid-template-columns:1fr;gap:8px;padding:65px 0}.public-hero-art{min-height:330px}.public-about-grid{gap:24px}.public-section{padding:70px 0}}
 @media(max-width:600px){.public-header{height:auto;min-height:76px;flex-wrap:wrap;padding:16px 0;gap:14px}.public-nav{order:3;width:100%;overflow-x:auto;padding:4px 0 2px;gap:22px}.public-login{margin-left:auto;padding:10px 12px;font-size:11px}.public-wordmark{font-size:10px}.public-monogram{width:34px;height:34px}.public-hero{padding:52px 0}.public-hero h1{font-size:47px}.public-lead{font-size:14px}.public-hero-art{min-height:290px}.hero-art-inner{width:215px;height:215px}.hero-art-title{font-size:26px}.orbit-one{width:290px;height:210px}.orbit-two{width:230px;height:320px}.public-trust-strip{justify-content:flex-start;overflow-x:auto;white-space:nowrap;font-size:8px}.public-about-grid,.public-section-heading{grid-template-columns:1fr;display:grid;gap:10px}.public-programme{grid-template-columns:36px 1fr 18px;gap:12px;padding:22px 0}.public-programme h3{font-size:16px}.public-programme p{font-size:12px}.public-leaders{grid-template-columns:1fr}.public-leader{min-height:125px}.public-contact{align-items:flex-start;flex-direction:column;padding:50px 0}.public-footer{align-items:flex-start;flex-direction:column;padding:24px 0;gap:12px}}
+
+
+/* Mamba FX Intelligent Trading OS */
+.os-shell{width:min(1120px,100%);margin:0 auto;padding:22px 24px 56px}
+.os-topbar{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #304158;padding-bottom:18px;gap:18px}
+.os-back{color:#e7bd64;text-decoration:none;font-size:13px}
+.os-hero{padding:52px 0 34px;max-width:820px}
+.os-kicker{font-size:11px;letter-spacing:.18em;color:#e7bd64;font-weight:800}
+.os-hero h1{font-size:clamp(34px,6vw,58px);line-height:1.04;margin:14px 0}
+.os-hero h1 span{color:#f4bd50}
+.os-hero p{max-width:720px;color:#b9c7d6;line-height:1.75}
+.os-price{display:inline-flex;align-items:center;gap:10px;margin-top:14px;padding:12px 16px;border:1px solid #8b713d;border-radius:12px;color:#f4d48d;font-weight:800}
+.os-status{font-size:12px;color:#e7bd64;margin-top:14px}
+.os-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.os-card{padding:22px;border:1px solid #304158;border-radius:18px;background:#101e30}
+.os-card h2{font-size:18px;margin:0 0 8px}
+.os-card p,.os-card li{font-size:13px;line-height:1.7;color:#b9c7d6}
+.os-card ul{padding-left:19px;margin-bottom:0}
+.os-wide{grid-column:1/-1}
+.os-callout{margin-top:18px;padding:18px;border-left:3px solid #d9b45f;background:#172538;color:#c7d2df;font-size:13px;line-height:1.7}
+.os-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.os-actions a{display:inline-flex;padding:12px 16px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:800}
+.os-primary{background:#f4bd50;color:#101827}
+.os-secondary{border:1px solid #53647a;color:#e9d29b}
+@media(max-width:650px){.os-shell{padding:16px}.os-grid{grid-template-columns:1fr}.os-wide{grid-column:auto}.os-hero{padding:38px 0 26px}.os-topbar{align-items:flex-start}}
