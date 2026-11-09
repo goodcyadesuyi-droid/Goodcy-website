@@ -16,7 +16,7 @@ export default async function Dashboard() {
         <p>Your trading education and MFX community, in one place.</p>
       </section>
       <nav className="main-nav" aria-label="Main navigation">
-        <a href="#home">Home</a><a href="#friends">Friends</a><a href="#studio">＋ Create</a><a href="#inbox">Inbox</a><a href="#profile">Profile</a>
+        <a href="#home">Home</a><a href="/trading-os">AI Trading OS</a><a href="#friends">Friends</a><a href="#studio">＋ Create</a><a href="#inbox">Inbox</a><a href="#profile">Profile</a>
       </nav>
       <section id="home" className="content-grid">
         <article className="feature-card">
