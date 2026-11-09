@@ -15,6 +15,7 @@ export default function Home() {
         <nav className="public-nav" aria-label="Main navigation">
           <a href="#about">About</a>
           <a href="#learning">Learning</a>
+          <a href="/trading-os">AI Trading OS</a>
           <a href="#leadership">Leadership</a>
           <a href="#contact">Contact</a>
         </nav>
