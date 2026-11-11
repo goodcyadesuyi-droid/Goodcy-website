@@ -1,80 +1,110 @@
-# Mamba FX Academy — Exness integration plan
+# Mamba FX Academy — Multi-Broker and AGI OS Integration Plan
 
-## Current status
+## Product decision
 
-- Proposed broker: **Exness**.
-- Website hosting: GitHub Pages (static hosting).
-- Trading terminal: `trade.html` is currently a DEMO-only frontend.
-- Live trading: **DISABLED**. No Exness API credentials, account connection, backend service, or live execution has been configured or tested.
-- Do not represent local demo orders or TradingView chart data as Exness account data or executed trades.
+Mamba FX Academy will list all five requested brokers:
 
-## Important account compatibility decision
+1. Exness
+2. Deriv
+3. IC Markets
+4. Pepperstone
+5. XM
 
-Exness publishes a Trader API for eligible Exness trading accounts. Exness Help Center currently states that standard MetaTrader accounts cannot connect to this API. Therefore, the first implementation route should be the official Exness Trader API only if the account selected in Exness Personal Area is eligible and the API key can be issued for it.
+The custom trading interface is branded **Mamba FX AGI-Powered Intelligent Operating System (AGI OS)**. AGI OS is the intended AI trading assistant and orchestration layer; it is not represented as human-level or proven Artificial General Intelligence. The current website contains only an educational assistant preview.
 
-If the user specifically requires an existing standard MT5 account, do not assume the Exness Trader API will access it. Obtain written confirmation from Exness about an authorised bridge or use a separately secured MT5-terminal integration on a managed Windows VPS, subject to broker terms and operational review.
+## Current implementation status
 
-Official references:
-- Exness API overview: https://www.exness-api.com/
-- Exness API account eligibility: https://get.exness.help/hc/en-us/articles/27866287512476-Exness-API
-- API key and host setup: https://www.exness-api.com/authentication/api-key-and-host-setup
-- Request signing: https://www.exness-api.com/authentication/request-signing
-- Trading API onboarding: https://www.exness-api.com/trading/get-started
-- Access point discovery: https://www.exness-api.com/trading/get-started/access-point-host-discovery
-- First read-only request: https://www.exness-api.com/trading/get-started/send-first-request
-- Trade execution flow: https://www.exness-api.com/trading/get-started/place-first-trade
-- WebSocket events: https://www.exness-api.com/trading/get-started/subscribe-to-websocket-events
+- `trade.html` now offers a five-broker selector and remembers the selected broker in the browser.
+- The selector is a preference only. Every broker currently shows **Selected · not connected**.
+- The trading terminal remains demo-only. Local practice orders are not transmitted to any broker.
+- The AGI OS assistant is a local educational preview, not a connected AI model, account monitor, signal service, or order manager.
+- Live trading remains disabled. No broker account has been linked, and no production backend has been deployed or tested.
+- GitHub Pages hosts static files only; it cannot securely host broker secrets or run the required private trading service.
 
-## Required production architecture
+## Broker integration assessment
 
-GitHub Pages cannot run a private server process. Keep it as the static web frontend only. Deploy a separate HTTPS backend to a managed server platform with secret storage, logs, monitoring, database and WebSocket support.
+A broker selector is not the same as an authorised trading connection. Implement a separate adapter for each broker and activate it only after the broker's exact account type, region, platform and API permissions are verified.
 
-Suggested components:
+### Exness
 
-1. **Frontend** — Mamba FX Academy web/PWA, authenticated session only; never receives Exness signing secrets.
-2. **Backend API** — validates user sessions and permissions, signs Exness requests, enforces trading limits and proxies approved account data.
-3. **Secret storage** — managed encrypted secrets; Exness private signing key must never be committed to Git, put in browser code, mobile app bundles, screenshots, or chat.
-4. **Database** — users, broker-account ownership links, consent, permissions, idempotency keys, order requests, execution events and audit logs.
-5. **Realtime gateway** — authenticated WebSocket fan-out from backend to each authorised user's browser/app.
-6. **AI assistant** — read-only market/account context by default. It must not submit orders unless the account owner separately enables a clearly disclosed automation permission and explicit risk limits.
+Exness publishes a Trader API with REST and WebSocket capabilities for account data, market data and trading. Its Help Center states that standard MetaTrader accounts cannot connect to that API; confirm account eligibility in the Exness Personal Area before implementation. For a standard MT5 account, investigate a broker-authorised MT5 terminal bridge instead of assuming the Exness Trader API can access it.
 
-## Exness API connection sequence
+References:
+- https://get.exness.help/hc/en-us/articles/27866287512476-Exness-API
+- https://www.exness-api.com/
 
-1. Account owner completes Exness identity/address verification and confirms API eligibility in their Personal Area.
-2. In Exness Key Management, create a dedicated API key scoped to the intended trading account and only the required permissions.
-3. Store API key identifier, private signing key, account ID, DNS Gateway host and resolved account Access Point as server-side secrets/configuration. Never send the private key to Mamba chat or commit it here.
-4. Implement Exness Ed25519 request signing exactly as documented, including fresh millisecond timestamps, signed path/query/body hash, and idempotency key headers.
-5. Resolve the account Access Point using the Gateway host from Exness Key Management; cache the returned Access Point as documented. Do not hardcode sample hostnames.
-6. Start with a signed **read-only** account-details request. Confirm account ID, currency, leverage and permissions before requesting any trade capability.
-7. Subscribe to the documented WebSocket ticks and account/transaction event streams. Reconnect with backoff and reconcile snapshots after reconnects.
-8. Implement order submission only after read-only validation. Exness trading requests are asynchronous: an ACK is not proof of execution. Store the operation ID and update UI state only after the final transaction event/status confirms success.
-9. Validate instrument availability, market session, min/max/step volume, margin, price levels, SL/TP, account trading state and rate limits before every order.
-10. Test all workflows on an eligible demo/practice account first. Keep live trading disabled until end-to-end tests, independent security review, legal/regulatory review and explicit account-owner consent are complete.
+### Deriv
 
-## Minimum safety controls before live trading
+Deriv publishes REST and WebSocket APIs for account access, market data and trading operations. Implement only the product/account endpoints appropriate to the user's Deriv account; Deriv options contracts and Deriv MT5 accounts are not interchangeable integration targets.
 
-- Per-user account ownership checks; no cross-user account data access.
-- Server-side secrets and key rotation/revocation procedure.
-- Least-privilege API scopes and IP allowlisting where available.
-- MFA for sign-in and step-up confirmation for sensitive actions.
-- CSRF protection, secure cookies, rate limiting and request validation.
-- Unique idempotency key for every order mutation; prevent duplicate submissions.
-- Explicit demo/live mode banner and account identity confirmation on every session.
-- Max volume, max exposure, daily loss and margin-use limits; kill switch.
-- Audit trail for user consent, order request, broker ACK, final execution result and errors.
-- AI cannot promise returns, invent signals, or bypass user permissions and risk limits.
-- Clear risk disclosures and review of applicable Nigerian and broker jurisdiction rules.
+References:
+- https://developers.deriv.me/docs/
+- https://developers.deriv.com/docs/intro/api-overview/
 
-## What is still needed from the account owner
+### IC Markets
 
-Do not send passwords, OTPs, API private keys, or account secrets in chat. The account owner must confirm privately in Exness:
+IC Markets' Help Centre says it does not offer FIX API connectivity into MT4/MT5 accounts, while cTrader accounts may use the cTrader/FIX route described by the broker. For MT5 accounts, obtain written broker confirmation of any supported integration or use a properly authorised MT5 terminal bridge.
 
-- Whether the selected account is an Exness API-eligible account or a standard MT5 account.
-- Whether Key Management exposes the Trading API product and permits a scoped key for that account.
-- Whether the account owner wants read-only account linking first, before any order permissions.
+Reference:
+- https://www.icmarkets-global.com/en/help-resources/help-centre
 
-After that, the developer can configure the backend secrets directly in the hosting provider's protected environment settings and run the read-only connection test.
+### Pepperstone
 
-## Release gate
+Pepperstone publishes API trading and cTrader integration information, but access and eligibility must be confirmed directly with Pepperstone for the specific account and region. The broker also supports MT4/MT5 accounts; do not assume an API product intended for one platform automatically controls another platform's account.
 
-The live toggle must remain disabled until the backend is deployed, Exness access is confirmed, read-only account verification passes, demo order lifecycle tests pass, security checks pass, and the owner explicitly enables live permissions. A GitHub commit or a visible button is not evidence of a live broker connection.
+References:
+- https://pepperstone.com/en/platforms/integrations
+- https://pepperstone.com/en/platforms/tools
+- https://pepperstone.com/en/support/platforms-and-tools
+
+### XM
+
+XM offers MT5 and supports Expert Advisors on its MetaTrader platform. The public information reviewed for this project does not establish a general retail trading API for connecting arbitrary third-party apps to XM MT5 accounts. Ask XM in writing whether it authorises an external custom frontend/bridge for the specific account. Do not use partner reporting APIs as trading APIs.
+
+References:
+- https://www.xm.com/mt5
+- https://partners.xm.com/help-center/tools-and-technology
+
+## Recommended technical architecture
+
+1. **Mamba frontend/PWA:** custom charts, account cards, broker selector, order ticket, positions, pending orders, history and AGI OS chat.
+2. **Broker adapter layer:** independent adapters for Exness, Deriv, IC Markets, Pepperstone and XM. Each adapter must declare supported platform/account types and capabilities; do not pretend every broker supports the same endpoints.
+3. **Private backend:** HTTPS API, authenticated sessions, per-user account isolation, broker connectivity and server-side order validation.
+4. **Realtime gateway:** authenticated WebSocket updates for prices, orders, positions, balance and equity, with reconnect and reconciliation logic.
+5. **Database and audit:** encrypted account-link metadata, user consent, permissions, order intents, idempotency keys, broker acknowledgements, final execution states and audit logs.
+6. **Secrets:** store API credentials only in protected server-side secret storage. Never place them in browser JavaScript, mobile bundles, GitHub, screenshots or chat.
+7. **AGI OS service:** model-backed assistant connected to approved market and account context through backend tools. Default to read-only analysis. Do not claim AGI capability, guaranteed accuracy, guaranteed profit or risk-free trading.
+
+## AGI OS capabilities to implement
+
+- Explain market structure, indicators, order types, margin and risk.
+- Summarise only verified broker account and market data, showing source and timestamp.
+- Monitor open positions, pending orders, margin and configured risk limits.
+- Generate scenario analysis and educational trade plans with uncertainty and downside.
+- Require user confirmation for every trade by default.
+- If automated execution is ever enabled, require separate opt-in, broker permissions, explicit strategy/risk settings, position and daily-loss limits, kill switch, and complete audit trail.
+- Never bypass broker restrictions, user consent, account permissions or risk controls.
+
+## Production release gates
+
+- Confirm legal/regulatory permissions for the business model and target users, including Nigeria and the broker's relevant jurisdiction.
+- Confirm the broker allows the specific integration method for each account.
+- Deploy a private backend on suitable hosting. For MT5-terminal integrations, use a managed Windows VPS with the terminal installed and securely controlled; do not expose the terminal or credentials publicly.
+- Begin with demo accounts and read-only account verification.
+- Test reconnects, stale data, partial fills, rejected orders, duplicate requests, symbol differences, trading sessions, margin, SL/TP and emergency shutdown.
+- Complete independent security review and end-to-end demo testing.
+- Keep live trading disabled until the account owner explicitly opts in and every release gate passes.
+
+## Security and risk controls
+
+- MFA, secure session cookies, CSRF protection, rate limiting and strict CORS/origin allowlist.
+- Per-user account ownership checks; no cross-user data access.
+- Least-privilege broker credentials, secret rotation and revocation.
+- Idempotency keys for order mutations and reconciliation against broker-confirmed state.
+- Max order volume, max exposure, max daily loss, margin-use thresholds and kill switch.
+- Demo/live mode shown clearly and tied to verified account identity, never just a UI toggle.
+- Clear leveraged-trading risk disclosures. No profit guarantees or deterministic win/loss claims.
+
+## Account-owner setup
+
+Do not send passwords, OTPs, API secrets or private keys in ChatGPT. The account owner should connect accounts only through the eventual secure Mamba backend flow after the broker-specific method has been approved. Start with one demo account and read-only access before adding any trading permission.
