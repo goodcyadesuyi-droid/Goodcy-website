@@ -108,3 +108,41 @@ References:
 ## Account-owner setup
 
 Do not send passwords, OTPs, API secrets or private keys in ChatGPT. The account owner should connect accounts only through the eventual secure Mamba backend flow after the broker-specific method has been approved. Start with one demo account and read-only access before adding any trading permission.
+
+
+## Exness MT5 live-account integration — readiness status (2026-11-12)
+
+**Status: prepared for discovery; not connected; live execution disabled.** No Exness credentials, account identifiers, private keys, or tokens are stored in this repository. No live orders can be submitted by the current GitHub Pages site.
+
+### Critical platform/API distinction
+
+- The Exness Trader API is a separate API product. Exness' current Help Center says standard MetaTrader accounts cannot connect to that API; only eligible Exness trading accounts can use it. Do not use Exness Trader API credentials as a workaround for an MT5 account.
+- An Exness MT5 account is tied to the MT5 platform. The account platform cannot be changed after creation. Verify the account is explicitly an **MT5** account and obtain its exact server name from the Exness Personal Area / MT5 account details.
+- For this requested MT5 account, the proposed route is a private, broker-authorised MetaTrader 5 terminal integration (for example, a managed Windows host running the official MT5 terminal and a private adapter), only after Exness confirms that the intended third-party access and business model are permitted. MetaTrader5 Python integration communicates with a locally installed/running terminal; it is not a public browser API and must not be exposed directly to the internet.
+- Exness also provides an MT5 WebTerminal developed by MetaQuotes and hosted on Exness' website. This can be linked as an official broker-hosted option, but it does not by itself embed a licensed MT5 terminal into Mamba or provide a backend API to Mamba.
+
+### Required account-owner and broker verification
+
+1. Account owner signs in directly to Exness and confirms the account is an MT5 live account, its trading server, account currency, leverage and current status.
+2. Ask Exness Support / the relevant relationship manager in writing whether a private third-party Mamba FX frontend/terminal bridge is permitted for this account, region and intended commercial use. Obtain any required technical approval, licensing, and partner agreement.
+3. Confirm whether Mamba is operating solely as the account holder's personal interface or providing execution/managed trading to customers. Obtain Nigerian and other applicable legal/regulatory advice before offering the service to other users or handling their orders/funds.
+4. Provision a private managed Windows host in a suitable region, harden it, restrict administrative access, enable MFA, patch the OS and terminal, and keep MT5 terminal/API access private. Do not expose RDP, terminal ports, or a raw trading API publicly.
+5. Deploy a backend with authenticated per-user sessions, strict account ownership checks, encrypted secret storage, audit logs, idempotency keys, rate limits, IP allowlisting where supported, monitoring, backups and an emergency kill switch.
+6. Connect first in read-only / demo mode. Verify account identity, server, symbols, bid/ask, positions, orders, history, balance, equity and margin against the official MT5 terminal.
+7. Test stale feeds, disconnect/reconnect, duplicate requests, partial fills, rejected orders, market closures, SL/TP, volume steps, margin checks and reconciliation. Complete security and end-to-end reviews.
+8. Keep live order methods disabled in the backend until all approvals and tests pass and the account owner separately enables live trading with explicit informed consent. Require confirmation for each order by default; enforce volume, exposure and daily-loss limits and a kill switch.
+
+### Current frontend safeguards
+
+- Broker selector may show Exness as selected, but it must continue to show **not connected** until a real authenticated backend verifies the account.
+- Demo records and third-party chart widgets are not MT5 account data.
+- Never accept MT5 passwords, investor passwords, OTPs, API keys, private keys or recovery codes in chat, frontend forms, URL parameters, logs or GitHub.
+- Never label the account live-connected, show a real balance, or enable live order buttons until backend verification is complete.
+
+### Official references checked
+
+- Exness API eligibility and distinction from standard MetaTrader accounts: https://get.exness.help/hc/en-us/articles/27866287512476-Exness-API
+- Exness supported platforms and broker-hosted MT WebTerminal: https://get.exness.help/hc/en-us/articles/360008194992-Available-trading-platforms
+- Exness account platform cannot be changed after account creation: https://get.exness.help/hc/en-us/articles/11087694467484-Can-I-change-the-platform-used-with-my-trading-account
+- MetaQuotes MT5 Python integration documentation: https://www.mql5.com/en/docs/python_metatrader5
+
