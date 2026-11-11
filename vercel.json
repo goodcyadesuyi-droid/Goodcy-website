@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "functions": {
+    "api/assistant.js": {
+      "maxDuration": 30
+    }
+  }
+}
