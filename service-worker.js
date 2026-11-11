@@ -1,4 +1,4 @@
-const CACHE='mamba-fx-academy-v15';
+const CACHE='mamba-fx-academy-v16';
 const ASSETS=['./','./index.html','./trade.html','./manifest.webmanifest','./icon-192.svg','./icon-512.svg','./assets/mamba-fx-logo.webp'];
 
 self.addEventListener('install',event=>{
