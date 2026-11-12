@@ -49,7 +49,7 @@
    <div id="authError" class="authError"></div>
    <button class="authSubmit" id="authSubmit" type="submit">Log in</button>
   </form>
-  <p class="authNote">Secure account sign-in is not connected yet. Connect an authentication provider before accepting real accounts or passwords.</p>
+  <p class="authNote">Secure WorkOS AuthKit sign-in is being configured. Real accounts will activate after the WorkOS Client ID and secure authentication backend are connected.</p>
   <button class="authGuest" onclick="enterPreview()">Explore preview</button>
  </div>
 </div>
@@ -95,7 +95,8 @@ if('serviceWorker'in navigator){addEventListener('load',()=>navigator.serviceWor
 <script>
 let authMode='signin';
 function setAuthMode(mode){authMode=mode;document.getElementById('signInTab').classList.toggle('active',mode==='signin');document.getElementById('signUpTab').classList.toggle('active',mode==='signup');document.getElementById('fullNameWrap').style.display=mode==='signup'?'block':'none';document.getElementById('authSubmit').textContent=mode==='signup'?'Create account':'Log in';document.getElementById('authPassword').autocomplete=mode==='signup'?'new-password':'current-password';document.getElementById('authError').style.display='none'}
-function submitAuth(event){event.preventDefault();const e=document.getElementById('authError');e.textContent='Authentication is not connected yet. No password has been saved or sent. Use Explore preview, or connect a secure auth provider to enable real login.';e.style.display='block'}
+const GOODCY_AUTH_BASE_URL=''; // Set this to the HTTPS URL of the deployed secure AuthKit backend after provisioning it.
+function submitAuth(event){event.preventDefault();const e=document.getElementById('authError');if(GOODCY_AUTH_BASE_URL){const route=authMode==='signup'?'/auth/sign-up':'/auth/sign-in';window.location.assign(GOODCY_AUTH_BASE_URL.replace(/\\/$/,'')+route);return;}e.textContent='AuthKit setup is pending: connect your WorkOS Client ID and deploy the secure authentication callback first. No password has been saved or sent. You can still use Explore preview.';e.style.display='block'}
 function enterPreview(){document.getElementById('authGate').style.display='none';document.getElementById('app').style.display='block';}
 (function(){document.getElementById('app').style.display='none';const launch=document.getElementById('launchScreen');const gate=document.getElementById('authGate');setTimeout(()=>{launch.style.display='none';gate.style.display='flex'},1900)})();
 </script>
