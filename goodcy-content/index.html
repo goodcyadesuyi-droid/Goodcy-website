@@ -82,6 +82,7 @@ body:before{background:conic-gradient(from 0deg at 50% 50%,#00d9ff66,#8b5cf666,#
 </div>
 <div id="authGate">
  <div class="authCard">
+  <button id="authInstallBtn" class="install-app-btn" type="button" onclick="installApp()" style="display:none;width:100%;justify-content:center;margin:0 0 18px;padding:12px 16px;font-size:14px">⇩ Install GOODCY CONTENT App</button>
   <div class="authBrand"><div class="miniLogo"><svg viewBox="0 0 100 100"><path d="M18 15h31c27 0 43 15 43 35S76 85 49 85H18V15zm29 18H36v34h11c18 0 27-6 27-17S65 33 47 33z" fill="#18d7ef"/><path d="M72 15h12v18H72z" fill="#168bff"/></svg></div><h1>GOODCY CONTENT</h1><p>Your people. Your stories. Your world.</p></div>
   <div class="authTabs"><button id="signInTab" class="active" onclick="setAuthMode('signin')">Log in</button><button id="signUpTab" onclick="setAuthMode('signup')">Sign up</button></div>
   <form id="authForm" onsubmit="submitAuth(event)">
@@ -126,11 +127,12 @@ function setMode(b){document.querySelectorAll('.modes button').forEach(x=>x.clas
 function showCreateTab(id,b){document.querySelectorAll('.postcreate button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('createTools').classList.toggle('hidden',id!=='createTools')}
 load();
 </script><script>
-let installPrompt=null;const installButton=document.getElementById('installBtn');
+let installPrompt=null;const installButtons=[document.getElementById('installBtn'),document.getElementById('authInstallBtn')].filter(Boolean);
 const isInstalled=()=>window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
-if(isInstalled()&&installButton)installButton.style.display='none';
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;if(installButton)installButton.style.display='inline-flex'});
-window.addEventListener('appinstalled',()=>{installPrompt=null;if(installButton)installButton.style.display='none';toast('GOODCY CONTENT installed successfully.')});
+const setInstallButtons=show=>installButtons.forEach(b=>b.style.display=show?'inline-flex':'none');
+if(isInstalled())setInstallButtons(false);
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;setInstallButtons(true)});
+window.addEventListener('appinstalled',()=>{installPrompt=null;setInstallButtons(false);toast('GOODCY CONTENT installed successfully.')});
 async function installApp(){if(isInstalled()){toast('GOODCY CONTENT is already installed.');return}if(installPrompt){installPrompt.prompt();const choice=await installPrompt.userChoice;if(choice.outcome==='accepted')toast('Installing GOODCY CONTENT…');installPrompt=null;return}toast(/iphone|ipad|ipod/i.test(navigator.userAgent)?'To install: tap Share, then Add to Home Screen.':'To install: open your browser menu and choose Install app or Add to Home screen.')}
 if('serviceWorker'in navigator){addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js',{scope:'./'}).catch(err=>console.warn('Service worker registration failed',err)))}
 </script>
