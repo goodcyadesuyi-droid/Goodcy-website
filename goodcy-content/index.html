@@ -92,6 +92,20 @@ body:before{z-index:0!important;opacity:.95}
 .authGuest{border-color:#5c8ec7;background:linear-gradient(110deg,#14294a,#2a1746);color:#fff}
 .install-app-btn{min-height:42px}
 @media(prefers-reduced-motion:reduce){body{animation:none!important}}
+
+/* FIXED CINEMATIC COLOURS — keep the palette still; no automatic colour cycling */
+html,body{background:#07152b!important}
+body{background:linear-gradient(135deg,#07152b 0%,#102b4b 48%,#17102f 100%)!important;animation:none!important}
+body:before{background:radial-gradient(ellipse at 18% 20%,#00c8ff35,transparent 42%),radial-gradient(ellipse at 82% 78%,#a34dff30,transparent 45%),linear-gradient(135deg,#07152b,#102b4b,#17102f)!important;filter:blur(42px);animation:none!important;transform:none!important}
+#app{background:linear-gradient(180deg,#09172bF2,#0b1930F2 55%,#0a1426F5)!important}
+.top{background:linear-gradient(105deg,#0b2440,#172447,#102d3b)!important;background-size:auto!important;animation:none!important}
+.card,.settingsgroup,.createoption,.dialog{border-image:none!important;border:1px solid #355779!important;background:linear-gradient(145deg,#142943,#171d36 58%,#10303a)!important}
+.bluebtn,.follow,.authSubmit,.top .install-app-btn{background:linear-gradient(105deg,#20c8ff,#397be8,#7654c8)!important;background-size:auto!important;animation:none!important;color:#04101d}
+.nav.create .ico{background:linear-gradient(120deg,#20c8ff,#397be8,#7654c8)!important;background-size:auto!important;animation:none!important}
+.feed{background:linear-gradient(135deg,#103b5a,#30204d,#104b4a)!important;background-size:auto!important;animation:none!important}
+#launchScreen,#authGate{background:linear-gradient(135deg,#071a32,#172449 55%,#103440)!important;background-size:auto!important;animation:none!important}
+#launchScreen .launchMark,.authBrand .miniLogo{animation:none!important}
+
 </style></head><body>
 <div id="launchScreen" aria-label="GOODCY CONTENT loading">
  <div class="launchMark"><div class="goodcy-monogram">G</div></div>
