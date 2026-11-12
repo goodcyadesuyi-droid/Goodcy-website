@@ -74,4 +74,4 @@ function saveProfile(){const name=(document.getElementById('editName').value||do
 function clearLocalData(){if(!confirm('Clear all GOODCY CONTENT demo posts and profile data from this browser?'))return;localStorage.removeItem(KEY);localStorage.removeItem(PROFILE);posts=[];profile={name:'GOODCY Member',bio:'Sharing ideas and good energy.'};load();notify('Local demo data cleared.')}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeComposer();closeProfile()}});load();
 </script>
-</body></html>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));}</script>\n</body></html>
