@@ -63,7 +63,7 @@ body:before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;
 :root{--live-a:#22d3ff;--live-b:#a855f7;--live-c:#ff4fa3;--live-d:#20e3b2}
 body{background:linear-gradient(115deg,#07152b,#20103c,#07313a,#34102d,#102b4b,#07152b);background-size:600% 600%;animation:liveColorJourney 18s linear infinite}
 body:before{background:conic-gradient(from 0deg at 50% 50%,#00d9ff66,#8b5cf666,#ff3e9e66,#ffce5a55,#00e3a766,#00d9ff66),radial-gradient(ellipse at 20% 20%,#00c8ff55,transparent 40%),radial-gradient(ellipse at 80% 75%,#ff3c9955,transparent 42%);background-size:200% 200%;filter:blur(55px);animation:liveAuroraSpin 22s linear infinite,auroraFlow 14s ease-in-out infinite alternate}
-#app{background:linear-gradient(180deg,#080d19e8,#090d18e9 55%,#080b14ed);border-top:1px solid #ffffff12}
+#app{position:relative;z-index:1;background:linear-gradient(180deg,#080d19b8,#090d18b8 55%,#080b14c2);border-top:1px solid #ffffff12;backdrop-filter:blur(2px)}
 .top{background:linear-gradient(105deg,#061a31ed,#241039ed,#06333bed,#35132ded,#061a31ed);background-size:500% 500%;animation:liveColorJourney 14s linear infinite}
 .card,.settingsgroup,.createoption,.dialog{border-image:linear-gradient(120deg,#27dfff,#a56bff,#ff5eae,#ffc95c,#28e6b5) 1;box-shadow:0 10px 34px #0006,0 0 18px #3aaaff14,inset 0 1px #ffffff12}
 .bluebtn,.follow,.authSubmit,.top .install-app-btn{background:linear-gradient(105deg,#20c8ff,#8b5cf6,#ff4f9a,#ffc857,#18d6ad,#20c8ff);background-size:400% 400%;animation:liveColorJourney 10s linear infinite;color:#04101d}
@@ -75,15 +75,32 @@ body:before{background:conic-gradient(from 0deg at 50% 50%,#00d9ff66,#8b5cf666,#
 @keyframes liveAuroraSpin{from{filter:blur(55px) hue-rotate(0deg)}to{filter:blur(55px) hue-rotate(360deg)}}
 @keyframes liveHue{from{filter:hue-rotate(0deg)}to{filter:hue-rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){body,body:before,.top,.bottom,#launchScreen,#authGate,.feed,.bluebtn,.follow,.authSubmit,.top .install-app-btn{animation:none!important}}
+
+/* Readable, high-contrast cinematic launch and live palette */
+body{position:relative;background:linear-gradient(120deg,#071b38,#31104b,#063e48,#4a1235,#123d60);background-size:500% 500%;animation:liveColorJourney 16s ease-in-out infinite}
+body:before{z-index:0!important;opacity:.95}
+#launchScreen,#authGate{z-index:2000!important}
+#launchScreen{display:flex!important}
+#launchScreen .launchMark,.authBrand .miniLogo{display:grid;place-items:center;overflow:hidden}
+.goodcy-monogram{font-family:Arial,sans-serif;font-size:76px;line-height:1;font-weight:1000;letter-spacing:-.1em;padding-right:.1em;color:#fff;text-shadow:0 0 12px #26e9ff,0 0 30px #9a59ff,0 0 48px #ff4fa3}
+.goodcy-monogram.small{font-size:46px}
+#launchScreen .launchMark{background:linear-gradient(135deg,#09284a,#2a1451,#07505b);border:2px solid #76f7ff}
+.authBrand .miniLogo{background:linear-gradient(135deg,#09284a,#2a1451,#07505b);border:2px solid #76f7ff}
+.authCard{color:#fff}
+.authCard label{color:#e3f2ff}
+.authNote{color:#c2d4ed}
+.authGuest{border-color:#5c8ec7;background:linear-gradient(110deg,#14294a,#2a1746);color:#fff}
+.install-app-btn{min-height:42px}
+@media(prefers-reduced-motion:reduce){body{animation:none!important}}
 </style></head><body>
 <div id="launchScreen" aria-label="GOODCY CONTENT loading">
- <div class="launchMark"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M18 15h31c27 0 43 15 43 35S76 85 49 85H18V15zm29 18H36v34h11c18 0 27-6 27-17S65 33 47 33z" fill="#18d7ef"/><path d="M72 15h12v18H72z" fill="#168bff"/></svg></div>
+ <div class="launchMark"><div class="goodcy-monogram">G</div></div>
  <h1>GOODCY CONTENT</h1><p>CREATE · SHARE · CONNECT</p><div class="launchTrack"></div>
 </div>
 <div id="authGate">
  <div class="authCard">
-  <button id="authInstallBtn" class="install-app-btn" type="button" onclick="installApp()" style="display:none;width:100%;justify-content:center;margin:0 0 18px;padding:12px 16px;font-size:14px">⇩ Install GOODCY CONTENT App</button>
-  <div class="authBrand"><div class="miniLogo"><svg viewBox="0 0 100 100"><path d="M18 15h31c27 0 43 15 43 35S76 85 49 85H18V15zm29 18H36v34h11c18 0 27-6 27-17S65 33 47 33z" fill="#18d7ef"/><path d="M72 15h12v18H72z" fill="#168bff"/></svg></div><h1>GOODCY CONTENT</h1><p>Your people. Your stories. Your world.</p></div>
+  <button id="authInstallBtn" class="install-app-btn" type="button" onclick="installApp()" style="display:flex;width:100%;justify-content:center;margin:0 0 18px;padding:12px 16px;font-size:14px">⇩ Install GOODCY CONTENT App</button>
+  <div class="authBrand"><div class="miniLogo"><div class="goodcy-monogram small">G</div></div><h1>GOODCY CONTENT</h1><p>Your people. Your stories. Your world.</p></div>
   <div class="authTabs"><button id="signInTab" class="active" onclick="setAuthMode('signin')">Log in</button><button id="signUpTab" onclick="setAuthMode('signup')">Sign up</button></div>
   <form id="authForm" onsubmit="submitAuth(event)">
    <div id="fullNameWrap" style="display:none"><label for="authName">Full name</label><input id="authName" autocomplete="name" placeholder="Your name"></div>
@@ -130,10 +147,10 @@ load();
 let installPrompt=null;const installButtons=[document.getElementById('installBtn'),document.getElementById('authInstallBtn')].filter(Boolean);
 const isInstalled=()=>window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
 const setInstallButtons=show=>installButtons.forEach(b=>b.style.display=show?'inline-flex':'none');
-if(isInstalled())setInstallButtons(false);
+if(isInstalled())setInstallButtons(false);else setInstallButtons(true);
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;setInstallButtons(true)});
 window.addEventListener('appinstalled',()=>{installPrompt=null;setInstallButtons(false);toast('GOODCY CONTENT installed successfully.')});
-async function installApp(){if(isInstalled()){toast('GOODCY CONTENT is already installed.');return}if(installPrompt){installPrompt.prompt();const choice=await installPrompt.userChoice;if(choice.outcome==='accepted')toast('Installing GOODCY CONTENT…');installPrompt=null;return}toast(/iphone|ipad|ipod/i.test(navigator.userAgent)?'To install: tap Share, then Add to Home Screen.':'To install: open your browser menu and choose Install app or Add to Home screen.')}
+async function installApp(){if(isInstalled()){toast('GOODCY CONTENT is already installed.');return}if(installPrompt){installPrompt.prompt();const choice=await installPrompt.userChoice;if(choice.outcome==='accepted')toast('Installing GOODCY CONTENT…');installPrompt=null;return}toast(/iphone|ipad|ipod/i.test(navigator.userAgent)?'To install: tap Share, then Add to Home Screen.':'Install: tap Chrome ⋮, then Install app or Add to Home screen. If unavailable, refresh this page once.')}
 if('serviceWorker'in navigator){addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js',{scope:'./'}).catch(err=>console.warn('Service worker registration failed',err)))}
 </script>
 <script>
