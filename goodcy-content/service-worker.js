@@ -1,4 +1,4 @@
-const CACHE='goodcy-content-v4';
+const CACHE='goodcy-content-v5';
 const SHELL=['./','./index.html','./manifest.webmanifest','./icon.svg'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));
