@@ -80,7 +80,6 @@ body:before{background:conic-gradient(from 0deg at 50% 50%,#00d9ff66,#8b5cf666,#
 body{position:relative;background:linear-gradient(120deg,#071b38,#31104b,#063e48,#4a1235,#123d60);background-size:500% 500%;animation:liveColorJourney 16s ease-in-out infinite}
 body:before{z-index:0!important;opacity:.95}
 #launchScreen,#authGate{z-index:2000!important}
-#launchScreen{display:flex!important}
 #launchScreen .launchMark,.authBrand .miniLogo{display:grid;place-items:center;overflow:hidden}
 .goodcy-monogram{font-family:Arial,sans-serif;font-size:76px;line-height:1;font-weight:1000;letter-spacing:-.1em;padding-right:.1em;color:#fff;text-shadow:0 0 12px #26e9ff,0 0 30px #9a59ff,0 0 48px #ff4fa3}
 .goodcy-monogram.small{font-size:46px}
@@ -172,7 +171,7 @@ let authMode='signin';
 function setAuthMode(mode){authMode=mode;document.getElementById('signInTab').classList.toggle('active',mode==='signin');document.getElementById('signUpTab').classList.toggle('active',mode==='signup');document.getElementById('fullNameWrap').style.display=mode==='signup'?'block':'none';document.getElementById('authSubmit').textContent=mode==='signup'?'Create account':'Log in';document.getElementById('authPassword').autocomplete=mode==='signup'?'new-password':'current-password';document.getElementById('authError').style.display='none'}
 const GOODCY_AUTH_BASE_URL=''; // Set this to the HTTPS URL of the deployed secure AuthKit backend after provisioning it.
 function submitAuth(event){event.preventDefault();const e=document.getElementById('authError');if(GOODCY_AUTH_BASE_URL){const route=authMode==='signup'?'/auth/sign-up':'/auth/sign-in';window.location.assign(GOODCY_AUTH_BASE_URL.replace(/\\/$/,'')+route);return;}e.textContent='AuthKit setup is pending: connect your WorkOS Client ID and deploy the secure authentication callback first. No password has been saved or sent. You can still use Explore preview.';e.style.display='block'}
-function enterPreview(){document.getElementById('authGate').style.display='none';document.getElementById('app').style.display='block';}
-(function(){document.getElementById('app').style.display='none';const launch=document.getElementById('launchScreen');const gate=document.getElementById('authGate');setTimeout(()=>{launch.style.display='none';gate.style.display='flex'},1900)})();
+function enterPreview(){sessionStorage.setItem('goodcy_preview_entered','yes');document.getElementById('authGate').style.display='none';document.getElementById('app').style.display='block';}
+(function(){document.getElementById('app').style.display='none';const launch=document.getElementById('launchScreen');const gate=document.getElementById('authGate');setTimeout(()=>{launch.style.display='none';if(isInstalled()&&sessionStorage.getItem('goodcy_preview_entered')==='yes'){gate.style.display='none';document.getElementById('app').style.display='block'}else{gate.style.display='flex'}},8000)})();
 </script>
 </body></html>
