@@ -33,6 +33,31 @@
 @keyframes loadingBar{0%{transform:translateX(-120%)}100%{transform:translateX(340%)}}
 @keyframes launchFade{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){#launchScreen .launchMark,.launchTrack:after{animation:none}}
+
+/* Cinematic living-color visual system */
+:root{--bg:#050711;--panel:#11182a;--panel2:#17233b;--line:#344765;--white:#fbfdff;--muted:#b4c3d9;--blue:#32a5ff;--cyan:#35f0ff;--pink:#ff4fa3;--violet:#9b70ff;--gold:#ffd36a}
+html{background:#050711}
+body{background:linear-gradient(125deg,#07152b,#160d2b,#071b2a,#21102b,#07152b);background-size:500% 500%;animation:cinemaBg 24s ease-in-out infinite;color:var(--white)}
+body:before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 15% 25%,#00c8ff55,transparent 34%),radial-gradient(ellipse at 80% 18%,#a34dff55,transparent 35%),radial-gradient(ellipse at 60% 85%,#ff3c9950,transparent 32%),radial-gradient(ellipse at 28% 78%,#00e5b555,transparent 30%);filter:blur(45px);background-size:150% 150%;animation:auroraFlow 18s ease-in-out infinite alternate}
+#app{background:linear-gradient(180deg,#080d19f2,#090d18f4 60%,#080b14f5);box-shadow:0 0 100px #168bff16}
+.top{background:linear-gradient(90deg,#07182beF,#1b1030eF,#09202beF);background-size:250% 250%;animation:topGlow 18s ease infinite;border-bottom:1px solid #42648b66}
+.card,.settingsgroup,.createoption,.dialog{background:linear-gradient(145deg,#14233aee,#15142bee 58%,#102b37ee);border-color:#3b5275;box-shadow:0 8px 30px #0005,inset 0 1px #ffffff0c}
+.bluebtn,.follow,.authSubmit{background:linear-gradient(100deg,#27a6ff,#25e5f1,#a77bff,#ff69b4);background-size:250% 250%;animation:buttonSpectrum 9s ease infinite;color:#04101d;box-shadow:0 5px 22px #168bff38}
+.nav.active{color:#5beaff;text-shadow:0 0 14px #26dfff99}
+.nav.create .ico{background:linear-gradient(120deg,#27a6ff,#2ce9ed,#b184ff,#ff70b8);background-size:250% 250%;animation:buttonSpectrum 8s ease infinite;box-shadow:0 0 22px #20cfff66}
+.feed{background:linear-gradient(140deg,#102b49,#30184b,#0b3c43,#1e1745);background-size:350% 350%;animation:cinemaBg 22s ease infinite}
+.feed-overlay{background:linear-gradient(180deg,#080c19a6,transparent 25%,transparent 55%,#02050ddd)}
+.avatar,.ring{box-shadow:0 0 18px #1abfff30}
+.authCard{background:linear-gradient(145deg,#101e33f5,#1d1232f2,#092733f5);border-color:#3c9bd8;box-shadow:0 0 70px #168bff30,0 0 120px #a34dff15}
+#launchScreen,#authGate{background:radial-gradient(ellipse at 15% 20%,#174b78 0%,transparent 38%),radial-gradient(ellipse at 85% 22%,#522b83 0%,transparent 38%),radial-gradient(ellipse at 60% 90%,#075c68 0%,transparent 40%),linear-gradient(135deg,#040817,#11102a,#041b28);background-size:180% 180%;animation:auroraFlow 18s ease-in-out infinite alternate}
+#launchScreen .launchMark{border-color:#54f4ff;box-shadow:0 0 28px #168bffcc,0 0 85px #18d7ef88,0 0 120px #a34dff44}
+#launchScreen h1,.authBrand h1{text-shadow:0 0 15px #21cfff,0 0 36px #8c5bff99}
+@keyframes cinemaBg{0%{background-position:0% 50%}25%{background-position:100% 0%}50%{background-position:100% 100%}75%{background-position:0% 100%}100%{background-position:0% 50%}}
+@keyframes auroraFlow{0%{background-position:0% 0%;transform:rotate(0deg) scale(1)}50%{background-position:100% 50%;transform:rotate(3deg) scale(1.06)}100%{background-position:20% 100%;transform:rotate(-3deg) scale(1.02)}}
+@keyframes topGlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes buttonSpectrum{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@media(prefers-reduced-motion:reduce){body,#app:before,.top,.feed,.bluebtn,.follow,.authSubmit,.nav.create .ico,#launchScreen,#authGate{animation:none!important}body:before{animation:none!important}}
+
 </style></head><body>
 <div id="launchScreen" aria-label="GOODCY CONTENT loading">
  <div class="launchMark"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M18 15h31c27 0 43 15 43 35S76 85 49 85H18V15zm29 18H36v34h11c18 0 27-6 27-17S65 33 47 33z" fill="#18d7ef"/><path d="M72 15h12v18H72z" fill="#168bff"/></svg></div>
