@@ -22,7 +22,7 @@ export default async function TradingOSPage() {
         <p>Welcome, {displayName}. A premium trading workspace combining AI-assisted research, disciplined risk planning, trade journaling and a future MT5 integration.</p>
         <div className="os-price">Premium package · $10,000 USD · 1 year</div>
         <div className="os-status">Product preview — payment verification, broker connection and live trading execution are not enabled.</div>
-        <div className="os-actions"><a className="os-primary" href="#workspace">Explore workspace</a><a className="os-secondary" href="mailto:goodcyadesuyi@gmail.com?subject=Mamba%20FX%20Trading%20OS%20Enquiry">Contact the academy</a></div>
+        <div className="os-actions"><a className="os-primary" href="/terminal">Open Trading Terminal preview</a><a className="os-secondary" href="#workspace">Explore workspace</a><a className="os-secondary" href="mailto:goodcyadesuyi@gmail.com?subject=Mamba%20FX%20Trading%20OS%20Enquiry">Contact the academy</a></div>
       </section>
       <section className="os-grid" id="workspace">
         {capabilities.map((item) => <article className="os-card" key={item.title}><h2>{item.title}</h2><p>{item.text}</p></article>)}
