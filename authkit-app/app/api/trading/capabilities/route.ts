@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { providerRegistry } from "@/lib/trading/providers";
+import { databaseConfigured } from "@/lib/trading/database";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +11,7 @@ export async function GET() {
       forexCfd: { availableInUi: true, demoExecution: true, liveExecution: false },
       fixedTimeOptions: { availableInUi: true, demoRecordsOnly: true, liveExecution: false, approvalRequired: true },
     },
+    database: { configured: databaseConfigured(), purpose: "persistent-demo-accounts-and-trade-history" },
     marketData: { connected: false, source: null, quoteType: "illustrative-ui-samples" },
     providers: providerRegistry,
     safety: {
