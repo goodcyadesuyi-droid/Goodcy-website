@@ -1,129 +1,39 @@
 "use client";
-
 import { useMemo, useState } from "react";
-
+type Product = "FOREX_CFD" | "FIXED_TIME_OPTIONS";
 type Side = "BUY" | "SELL";
-type Position = { id: number; symbol: string; side: Side; volume: number; entry: number; openedAt: string };
-
-const markets = [
-  { symbol: "EURUSD", name: "Euro / US Dollar", bid: 1.08421, ask: 1.08435, change: "+0.24%" },
-  { symbol: "GBPUSD", name: "British Pound / US Dollar", bid: 1.27108, ask: 1.27124, change: "+0.11%" },
-  { symbol: "USDJPY", name: "US Dollar / Japanese Yen", bid: 154.382, ask: 154.397, change: "-0.08%" },
-  { symbol: "XAUUSD", name: "Gold / US Dollar", bid: 2374.62, ask: 2374.91, change: "+0.63%" },
-  { symbol: "BTCUSD", name: "Bitcoin / US Dollar", bid: 67420.5, ask: 67438.2, change: "+1.42%" },
-];
-
-const candleData = [
-  [38, 54, 30, 66], [49, 66, 40, 73], [62, 48, 39, 70], [48, 42, 31, 58],
-  [43, 58, 36, 64], [57, 73, 50, 78], [70, 62, 55, 80], [62, 46, 38, 68],
-  [47, 55, 40, 64], [54, 69, 48, 75], [68, 60, 53, 76], [60, 43, 35, 66],
-  [45, 52, 39, 60], [51, 65, 46, 71], [64, 77, 58, 83], [75, 67, 60, 84],
-  [67, 58, 49, 73], [58, 70, 52, 76], [69, 81, 63, 88], [79, 72, 65, 86],
-  [72, 61, 53, 78], [61, 69, 56, 75], [68, 84, 62, 90], [82, 76, 69, 89],
-];
-
-export default function TradingTerminalPage() {
-  const [symbol, setSymbol] = useState("EURUSD");
-  const [timeframe, setTimeframe] = useState("15m");
-  const [side, setSide] = useState<Side>("BUY");
-  const [volume, setVolume] = useState("0.01");
-  const [stopLoss, setStopLoss] = useState("");
-  const [takeProfit, setTakeProfit] = useState("");
-  const [tab, setTab] = useState("Positions");
-  const [positions, setPositions] = useState<Position[]>([]);
-  const [notice, setNotice] = useState("Demo preview only. Orders here are simulated and never reach a broker.");
-  const [showIndicators, setShowIndicators] = useState(false);
-  const [mode, setMode] = useState<"DEMO" | "LIVE">("DEMO");
-
-  const market = markets.find((item) => item.symbol === symbol) ?? markets[0];
-  const price = side === "BUY" ? market.ask : market.bid;
-  const chart = useMemo(() => candleData, []);
-
-  function placeDemoOrder() {
-    const parsed = Number(volume);
-    if (!Number.isFinite(parsed) || parsed <= 0 || parsed > 100) {
-      setNotice("Enter a valid demo volume between 0.01 and 100 lots.");
-      return;
-    }
-    const position: Position = {
-      id: Date.now(),
-      symbol,
-      side,
-      volume: parsed,
-      entry: price,
-      openedAt: new Date().toLocaleTimeString(),
-    };
-    setPositions((current) => [position, ...current]);
-    setTab("Positions");
-    setNotice(`Demo ${side} order created for ${symbol} at ${price}. No real trade was placed.`);
-  }
-
-  function closePosition(id: number) {
-    setPositions((current) => current.filter((position) => position.id !== id));
-    setNotice("Demo position closed. No broker order was sent.");
-  }
-
-  return (
-    <main className="terminal-shell">
-      <header className="terminal-header">
-        <a className="terminal-brand" href="/dashboard"><span className="terminal-mark">MFX</span><span>MAMBA FX <b>ACADEMY</b><small>TRADING TERMINAL</small></span></a>
-        <nav className="terminal-header-links"><a href="/trading-os">AI Trading OS</a><a href="/dashboard">Dashboard</a></nav>
-        <div className="terminal-mode"><span className="terminal-dot" /> EXNESS · NOT CONNECTED</div>
-      </header>
-
-      <div className="terminal-toolbar">
-        <div><span className="terminal-eyebrow">ACCOUNT WORKSPACE</span><h1>Trading Terminal</h1></div>
-        <div className="terminal-account"><span>ACCOUNT MODE</span><div><button className={mode === "DEMO" ? "active" : ""} onClick={() => setMode("DEMO")}>DEMO</button><button disabled title="Live trading is not enabled until broker integration and authorization are complete" className={mode === "LIVE" ? "active" : ""} onClick={() => setMode("LIVE")}>LIVE <small>LOCKED</small></button></div></div>
-      </div>
-
-      <div className="terminal-warning"><strong>DEMO SIMULATOR</strong><span>This is an interactive interface preview with illustrative market data. It is not connected to Exness or MT5. Live trading is disabled.</span></div>
-
-      <section className="terminal-layout">
-        <aside className="terminal-watchlist">
-          <div className="terminal-panel-title"><h2>Market Watch</h2><span>DEMO DATA</span></div>
-          {markets.map((item) => <button key={item.symbol} onClick={() => setSymbol(item.symbol)} className={symbol === item.symbol ? "market-row selected" : "market-row"}><span><b>{item.symbol}</b><small>{item.name}</small></span><span className="market-quote"><b>{item.bid}</b><small className={item.change.startsWith("+") ? "positive" : "negative"}>{item.change}</small></span></button>)}
-          <div className="terminal-connection"><span className="terminal-dot" /><div><b>Exness connection</b><small>Awaiting approved integration</small></div></div>
-        </aside>
-
-        <section className="terminal-main">
-          <div className="terminal-chart-head"><div><span className="terminal-eyebrow">SELECTED INSTRUMENT</span><h2>{symbol} <small>{market.name}</small></h2><strong>{market.bid}</strong><span className="positive"> {market.change}</span></div><div className="terminal-timeframes">{["1m", "5m", "15m", "1H", "4H", "1D"].map((frame) => <button key={frame} className={timeframe === frame ? "active" : ""} onClick={() => setTimeframe(frame)}>{frame}</button>)}</div></div>
-          <div className="terminal-chart">
-            <div className="chart-grid"><span>1.0870</span><span>1.0860</span><span>1.0850</span><span>1.0840</span><span>1.0830</span></div>
-            <svg viewBox="0 0 720 330" role="img" aria-label={`Illustrative ${symbol} candlestick chart`} preserveAspectRatio="none">
-              {[50, 110, 170, 230, 290].map((y) => <line key={y} x1="0" y1={y} x2="720" y2={y} stroke="#26384b" strokeDasharray="3 5" />)}
-              {chart.map(([open, close, low, high], index) => {
-                const x = 18 + index * 29;
-                const up = close >= open;
-                const color = up ? "#20b783" : "#e36e70";
-                return <g key={index}><line x1={x + 7} y1={330 - high * 3.3} x2={x + 7} y2={330 - low * 3.3} stroke={color} strokeWidth="1.5" /><rect x={x} y={330 - Math.max(open, close) * 3.3} width="14" height={Math.max(4, Math.abs(close - open) * 3.3)} fill={color} rx="1" /></g>;
-              })}
-              <polyline points="18,190 75,205 132,170 189,184 246,145 303,155 360,132 417,149 474,108 531,120 588,94 645,103 710,78" fill="none" stroke="#e5bb5a" strokeWidth="2" opacity=".9" />
-            </svg>
-            <div className="chart-watermark">MAMBA FX · SIMULATED CHART</div>
-            <div className="chart-current-price">{market.bid}</div>
-            <div className="chart-bottom-labels"><span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span><span>13:00</span><span>14:00</span></div>
-          </div>
-          <div className="terminal-chart-tools"><button onClick={() => setShowIndicators((value) => !value)}>{showIndicators ? "Hide indicators" : "Indicators +"}</button><button onClick={() => setNotice("Drawing tools are part of the chart integration milestone.")}>Drawing tools</button><span>{showIndicators ? "RSI · MACD · Moving Average (preview controls)" : "Candles · " + timeframe + " · Illustrative prices"}</span></div>
-          <div className="terminal-trades">
-            <div className="terminal-tabs">{["Positions", "Pending", "History"].map((item) => <button key={item} className={tab === item ? "active" : ""} onClick={() => setTab(item)}>{item}{item === "Positions" ? ` (${positions.length})` : ""}</button>)}</div>
-            {tab === "Positions" ? positions.length ? <div className="position-table"><div className="position-row position-head"><span>Instrument</span><span>Side</span><span>Volume</span><span>Entry</span><span>Action</span></div>{positions.map((position) => <div className="position-row" key={position.id}><b>{position.symbol}</b><span className={position.side === "BUY" ? "positive" : "negative"}>{position.side}</span><span>{position.volume.toFixed(2)}</span><span>{position.entry}</span><button onClick={() => closePosition(position.id)}>Close demo</button></div>)}</div> : <div className="terminal-empty">No demo positions open. Use the order ticket to simulate a trade.</div> : <div className="terminal-empty">{tab === "Pending" ? "No pending demo orders." : "Demo trade history will appear here after positions are closed."}</div>}
-          </div>
-        </section>
-
-        <aside className="terminal-ticket">
-          <div className="terminal-panel-title"><h2>Order Ticket</h2><span>SIMULATION</span></div>
-          <label>Instrument<select value={symbol} onChange={(event) => setSymbol(event.target.value)}>{markets.map((item) => <option key={item.symbol} value={item.symbol}>{item.symbol}</option>)}</select></label>
-          <div className="ticket-side"><button className={side === "BUY" ? "buy active" : "buy"} onClick={() => setSide("BUY")}>BUY <small>{market.ask}</small></button><button className={side === "SELL" ? "sell active" : "sell"} onClick={() => setSide("SELL")}>SELL <small>{market.bid}</small></button></div>
-          <label>Volume (lots)<input type="number" min="0.01" max="100" step="0.01" value={volume} onChange={(event) => setVolume(event.target.value)} /></label>
-          <label>Stop Loss <input value={stopLoss} onChange={(event) => setStopLoss(event.target.value)} placeholder="Optional price" inputMode="decimal" /></label>
-          <label>Take Profit <input value={takeProfit} onChange={(event) => setTakeProfit(event.target.value)} placeholder="Optional price" inputMode="decimal" /></label>
-          <div className="ticket-summary"><span>Estimated entry</span><b>{price}</b><span>Account</span><b>Demo simulator</b></div>
-          <button className="ticket-submit" onClick={placeDemoOrder}>Place demo {side} order</button>
-          <p className="ticket-disclaimer">This button only creates a local simulated position. It does not send an order to Exness, MT5 or any broker. SL/TP fields are UI inputs only in this preview.</p>
-        </aside>
-      </section>
-      <div className="terminal-notice" role="status">{notice}</div>
-      <footer className="terminal-footer">Mamba FX Academy · Trading involves risk. This simulator is for interface testing and education only.</footer>
-    </main>
-  );
+type DemoTrade = { id:string; product:Product; symbol:string; side:Side; amount:number; entry:number; openedAt:string; status:"OPEN"|"CLOSED" };
+type Market = {symbol:string;name:string;category:string;bid:number;ask:number;change:string;precision:number};
+const markets:Market[]=[
+{symbol:"EURUSD",name:"Euro / US Dollar",category:"Forex",bid:1.08421,ask:1.08435,change:"+0.24%",precision:5},
+{symbol:"GBPUSD",name:"British Pound / US Dollar",category:"Forex",bid:1.27108,ask:1.27124,change:"+0.11%",precision:5},
+{symbol:"USDJPY",name:"US Dollar / Japanese Yen",category:"Forex",bid:154.382,ask:154.397,change:"-0.08%",precision:3},
+{symbol:"XAUUSD",name:"Gold / US Dollar",category:"Commodities",bid:2374.62,ask:2374.91,change:"+0.63%",precision:2},
+{symbol:"BTCUSD",name:"Bitcoin / US Dollar",category:"Crypto",bid:67420.5,ask:67438.2,change:"+1.42%",precision:2},
+{symbol:"US500",name:"US 500 Index",category:"Indices",bid:5284.2,ask:5284.8,change:"+0.18%",precision:1},
+{symbol:"AAPL",name:"Apple Inc.",category:"Stocks",bid:189.42,ask:189.48,change:"-0.31%",precision:2}];
+const candles=[38,54,30,66,49,66,40,73,62,48,39,70,48,42,31,58,43,58,36,64,57,73,50,78,70,62,55,80,62,46,38,68,47,55,40,64,54,69,48,75,68,60,53,76,60,43,35,66,45,52,39,60,51,65,46,71,64,77,58,83,75,67,60,84,67,58,49,73,58,70,52,76,69,81,63,88,79,72,65,86,72,61,53,78,61,69,56,75,68,84,62,90];
+export default function TerminalClient(){
+const [product,setProduct]=useState<Product>("FOREX_CFD"),[symbol,setSymbol]=useState("EURUSD"),[timeframe,setTimeframe]=useState("15m"),[side,setSide]=useState<Side>("BUY"),[amount,setAmount]=useState("0.01"),[expiry,setExpiry]=useState("60 seconds"),[panel,setPanel]=useState("Positions"),[category,setCategory]=useState("All"),[trades,setTrades]=useState<DemoTrade[]>([]),[message,setMessage]=useState("Practice workspace. Prices are illustrative, not live quotes."),[indicator,setIndicator]=useState("Moving Average"),[chartType,setChartType]=useState("Candles"),[search,setSearch]=useState(""),[watchlist,setWatchlist]=useState(["EURUSD","XAUUSD","BTCUSD"]);
+const market=markets.find(x=>x.symbol===symbol)||markets[0],price=side==="BUY"?market.ask:market.bid;
+const filtered=useMemo(()=>markets.filter(x=>(category==="All"||x.category===category)&&(x.symbol+x.name).toLowerCase().includes(search.toLowerCase())),[category,search]);
+const open=trades.filter(x=>x.status==="OPEN"),closed=trades.filter(x=>x.status==="CLOSED");
+function createDemo(){const n=Number(amount);if(!Number.isFinite(n)||n<=0||n>10000){setMessage("Enter a valid demo amount greater than zero and no more than 10,000.");return;}if(product==="FIXED_TIME_OPTIONS"&&n<1){setMessage("Enter at least 1 virtual unit for the options demo.");return;}setTrades(xs=>[{id:String(Date.now())+Math.random(),product,symbol,side,amount:n,entry:price,openedAt:new Date().toLocaleTimeString(),status:"OPEN"},...xs]);setPanel("Positions");setMessage(product==="FIXED_TIME_OPTIONS"?"Local options demo record created. No live contract, payout or settlement was requested.":"Local demo position created. No broker order was submitted.");}
+function closeDemo(id:string){setTrades(xs=>xs.map(x=>x.id===id?{...x,status:"CLOSED"}:x));setMessage("Demo record closed locally. No broker close instruction was sent.");}
+return <main className="mfx-terminal">
+<header className="mfx-topbar"><a className="mfx-brand" href="/dashboard"><span className="mfx-logo">MFX</span><span>MAMBA FX <b>ACADEMY</b><small>TRADING PLATFORM</small></span></a><nav className="mfx-toplinks"><a href="/dashboard">Dashboard</a><a href="/trading-os">AI Trading OS</a><a href="/dashboard#profile">Account</a></nav><div className="mfx-mode"><i/> DEMO ACCOUNT <span>·</span> LIVE LOCKED</div></header>
+<section className="mfx-heading"><div><div className="mfx-kicker">MULTI-ASSET WORKSPACE</div><h1>Trading Terminal</h1><p>Analyse markets, practise strategies and manage demo activity.</p></div><div className="mfx-account-card"><span>ACCOUNT MODE</span><strong>DEMO PRACTICE</strong><small>Virtual activity only · live execution disabled</small></div></section>
+<div className="mfx-safety"><b>DEMO ENVIRONMENT</b><span>Prices and chart candles are illustrative. Orders are stored only in this browser session. No broker, exchange, payment provider or live market feed is connected.</span></div>
+<div className="mfx-product-switch" role="tablist" aria-label="Trading product"><button className={product==="FOREX_CFD"?"selected":""} onClick={()=>setProduct("FOREX_CFD")}>Forex &amp; CFDs</button><button className={product==="FIXED_TIME_OPTIONS"?"selected":""} onClick={()=>setProduct("FIXED_TIME_OPTIONS")}>Fixed-time options <small>DEMO</small></button></div>
+<div className="mfx-workspace">
+<aside className="mfx-panel mfx-markets"><div className="mfx-panel-head"><h2>Markets</h2><span>{markets.length} instruments</span></div><input className="mfx-search" aria-label="Search markets" placeholder="Search instruments..." value={search} onChange={e=>setSearch(e.target.value)}/><div className="mfx-categories">{["All","Forex","Commodities","Crypto","Indices","Stocks"].map(x=><button key={x} className={category===x?"active":""} onClick={()=>setCategory(x)}>{x}</button>)}</div><div className="mfx-market-list">{filtered.map(x=><div key={x.symbol} className={symbol===x.symbol?"mfx-market active":"mfx-market"}><button className="mfx-market-select" onClick={()=>setSymbol(x.symbol)}><b>{x.symbol}</b><small>{x.name}</small></button><div><strong>{x.bid.toFixed(x.precision)}</strong><small className={x.change.startsWith("+")?"up":"down"}>{x.change}</small></div><button className="mfx-star" aria-label={watchlist.includes(x.symbol)?"Remove from watchlist":"Add to watchlist"} onClick={()=>setWatchlist(xs=>xs.includes(x.symbol)?xs.filter(y=>y!==x.symbol):[...xs,x.symbol])}>{watchlist.includes(x.symbol)?"★":"☆"}</button></div>)}</div><div className="mfx-watch-note">Watchlist: {watchlist.length} saved instruments</div></aside>
+<section className="mfx-centre"><div className="mfx-panel mfx-chart-panel"><div className="mfx-chart-top"><div><div className="mfx-kicker">SELECTED MARKET</div><h2>{symbol} <small>{market.name}</small></h2><strong>{market.bid.toFixed(market.precision)}</strong><span className={market.change.startsWith("+")?"up":"down"}> {market.change}</span></div><div className="mfx-chart-selects"><select aria-label="Chart type" value={chartType} onChange={e=>setChartType(e.target.value)}><option>Candles</option><option>Line</option><option>Bars</option><option>Heikin-Ashi</option></select><select aria-label="Chart timeframe" value={timeframe} onChange={e=>setTimeframe(e.target.value)}>{["1m","5m","15m","30m","1H","4H","1D","1W"].map(x=><option key={x}>{x}</option>)}</select></div></div>
+<div className="mfx-chart"><div className="mfx-chart-grid">{[0,1,2,3,4,5].map(i=><span key={i}>{(market.bid+(5-i)*Math.pow(10,-market.precision)).toFixed(market.precision)}</span>)}</div><svg viewBox="0 0 760 340" preserveAspectRatio="none" role="img" aria-label={"Illustrative "+chartType+" chart for "+symbol}>{[45,105,165,225,285].map(y=><line key={y} x1="0" y1={y} x2="760" y2={y} stroke="#263a4c" strokeDasharray="4 6"/>)}{chartType==="Line"?<polyline points={candles.filter((_,i)=>i%2===0).map((v,i)=>(i*34)+","+(320-v*2.8)).join(" ")} fill="none" stroke="#e7bd64" strokeWidth="2.5"/>:candles.filter((_,i)=>i%4===0).map((v,i)=>{const x=12+i*34,up=i%3!==0,y=320-v*2.8;return <g key={i}><line x1={x+8} y1={y-28} x2={x+8} y2={y+25} stroke={up?"#27b783":"#e16d70"} strokeWidth="2"/><rect x={x} y={y-12} width="16" height="25" rx="1" fill={up?"#27b783":"#e16d70"}/></g>;})}</svg><div className="mfx-chart-label">MAMBA FX · ILLUSTRATIVE CHART DATA</div><div className="mfx-chart-times"><span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span><span>13:00</span><span>14:00</span></div></div>
+<div className="mfx-chart-tools"><label>Indicator <select value={indicator} onChange={e=>setIndicator(e.target.value)}>{["Moving Average","RSI","MACD","Bollinger Bands","Stochastic","ATR"].map(x=><option key={x}>{x}</option>)}</select></label><button onClick={()=>setMessage("Drawing tools are planned for the chart-engine integration phase.")}>＋ Drawing tools</button><span>{indicator} · {timeframe} · {chartType}</span></div></div>
+<div className="mfx-panel mfx-portfolio"><div className="mfx-panel-head"><h2>Trading activity</h2><div className="mfx-tabs">{["Positions","Pending","History"].map(x=><button key={x} className={panel===x?"active":""} onClick={()=>setPanel(x)}>{x}{x==="Positions"?" ("+open.length+")":x==="History"?" ("+closed.length+")":""}</button>)}</div></div>{panel==="Positions"?(open.length?open.map(t=><div className="mfx-trade-row" key={t.id}><b>{t.symbol}</b><span>{t.product==="FOREX_CFD"?"Forex/CFD":"Options demo"}</span><span className={t.side==="BUY"?"up":"down"}>{t.side}</span><span>{t.amount} {t.product==="FOREX_CFD"?"lots (demo)":"virtual units"}</span><span>{t.entry}</span><button onClick={()=>closeDemo(t.id)}>Close demo record</button></div>):<div className="mfx-empty">No open demo activity. Use the order ticket to practise.</div>):panel==="History"?(closed.length?closed.map(t=><div className="mfx-trade-row" key={t.id}><b>{t.symbol}</b><span>{t.product==="FOREX_CFD"?"Forex/CFD":"Options demo"}</span><span>{t.side}</span><span>{t.amount}</span><span>{t.openedAt}</span><span>Closed locally</span></div>):<div className="mfx-empty">No closed demo records yet.</div>):<div className="mfx-empty">Pending orders will appear when supported demo order types are implemented.</div>}</div></section>
+<aside className="mfx-panel mfx-ticket"><div className="mfx-panel-head"><h2>{product==="FOREX_CFD"?"Trade ticket":"Options ticket"}</h2><span>DEMO</span></div><label>Instrument<select value={symbol} onChange={e=>setSymbol(e.target.value)}>{markets.map(x=><option key={x.symbol} value={x.symbol}>{x.symbol} · {x.category}</option>)}</select></label><div className="mfx-side-buttons"><button className={side==="BUY"?"buy active":"buy"} onClick={()=>setSide("BUY")}>{product==="FOREX_CFD"?"BUY":"UP"}<small>{market.ask.toFixed(market.precision)}</small></button><button className={side==="SELL"?"sell active":"sell"} onClick={()=>setSide("SELL")}>{product==="FOREX_CFD"?"SELL":"DOWN"}<small>{market.bid.toFixed(market.precision)}</small></button></div><label>{product==="FOREX_CFD"?"Volume (lots)":"Stake (virtual units)"}<input type="number" min={product==="FOREX_CFD"?"0.01":"1"} step={product==="FOREX_CFD"?"0.01":"1"} value={amount} onChange={e=>setAmount(e.target.value)}/></label>{product==="FOREX_CFD"?<><label>Stop Loss (demo input)<input placeholder="Optional price"/></label><label>Take Profit (demo input)<input placeholder="Optional price"/></label></>:<><label>Contract expiry<select value={expiry} onChange={e=>setExpiry(e.target.value)}><option>30 seconds</option><option>60 seconds</option><option>5 minutes</option><option>15 minutes</option><option>1 hour</option></select></label><div className="mfx-options-notice"><b>Live options are not enabled</b><span>No live payout, contract pricing or settlement is available. This control creates only a local demo record.</span></div></>}
+<div className="mfx-ticket-summary"><span>Reference price</span><b>{price.toFixed(market.precision)}</b><span>Provider</span><b>Not connected</b><span>Account</span><b>Virtual demo</b></div><button className="mfx-submit" onClick={createDemo}>Create demo {product==="FOREX_CFD"?side:side==="BUY"?"UP":"DOWN"}</button><p className="mfx-disclaimer">Simulation only. No broker order or real options contract is submitted. SL/TP and expiry are demo inputs only.</p></aside>
+</div>
+<section className="mfx-provider-panel"><div><div className="mfx-kicker">BROKER CONNECTIVITY</div><h2>Multi-provider integration framework</h2><p>Provider adapters are planned independently. None is connected or authorized in this build.</p></div><div className="mfx-provider-list">{["Exness MT5","Deriv","IC Markets","Pepperstone","XM","Options provider"].map(x=><span key={x}><i/>{x}<small>NOT CONNECTED</small></span>)}</div></section>
+<div className="mfx-status" role="status">{message}</div><footer className="mfx-footer">Mamba FX Academy · Trading involves risk. Demo data is illustrative. Live trading and real-money options remain disabled pending provider, legal and security approvals.</footer></main>;
 }
