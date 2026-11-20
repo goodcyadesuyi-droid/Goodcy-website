@@ -1,3 +1,4 @@
+import "./terminal.css";
 import { withAuth } from "@workos-inc/authkit-nextjs";
 import TerminalClient from "./terminal-client";
 
