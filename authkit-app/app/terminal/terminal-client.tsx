@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react";
 type Product = "FOREX_CFD" | "FIXED_TIME_OPTIONS";
 type Side = "BUY" | "SELL";
-type DemoTrade = { id:string; product:Product; symbol:string; side:Side; amount:number; entry:number; openedAt:string; status:"OPEN"|"CLOSED" };
+type DemoTrade = { id:string; product:Product; symbol:string; side:Side; amount:number; entry:number; openedAt:string; expiry?:string; status:"OPEN"|"CLOSED" };
 type Market = {symbol:string;name:string;category:string;bid:number;ask:number;change:string;precision:number};
 const markets:Market[]=[
 {symbol:"EURUSD",name:"Euro / US Dollar",category:"Forex",bid:1.08421,ask:1.08435,change:"+0.24%",precision:5},
@@ -18,7 +18,7 @@ const [product,setProduct]=useState<Product>("FOREX_CFD"),[symbol,setSymbol]=use
 const market=markets.find(x=>x.symbol===symbol)||markets[0],price=side==="BUY"?market.ask:market.bid;
 const filtered=useMemo(()=>markets.filter(x=>(category==="All"||x.category===category)&&(x.symbol+x.name).toLowerCase().includes(search.toLowerCase())),[category,search]);
 const open=trades.filter(x=>x.status==="OPEN"),closed=trades.filter(x=>x.status==="CLOSED");
-function createDemo(){const n=Number(amount);if(!Number.isFinite(n)||n<=0||n>10000){setMessage("Enter a valid demo amount greater than zero and no more than 10,000.");return;}if(product==="FIXED_TIME_OPTIONS"&&n<1){setMessage("Enter at least 1 virtual unit for the options demo.");return;}setTrades(xs=>[{id:String(Date.now())+Math.random(),product,symbol,side,amount:n,entry:price,openedAt:new Date().toLocaleTimeString(),status:"OPEN"},...xs]);setPanel("Positions");setMessage(product==="FIXED_TIME_OPTIONS"?"Local options demo record created. No live contract, payout or settlement was requested.":"Local demo position created. No broker order was submitted.");}
+function createDemo(){const n=Number(amount);if(!Number.isFinite(n)||n<=0||n>10000){setMessage("Enter a valid demo amount greater than zero and no more than 10,000.");return;}if(product==="FIXED_TIME_OPTIONS"&&n<1){setMessage("Enter at least 1 virtual unit for the options demo.");return;}setTrades(xs=>[{id:String(Date.now())+Math.random(),product,symbol,side,amount:n,entry:price,openedAt:new Date().toLocaleTimeString(),expiry:product==="FIXED_TIME_OPTIONS"?expiry:undefined,status:"OPEN"},...xs]);setPanel("Positions");setMessage(product==="FIXED_TIME_OPTIONS"?"Local options demo record created. No live contract, payout or settlement was requested.":"Local demo position created. No broker order was submitted.");}
 function closeDemo(id:string){setTrades(xs=>xs.map(x=>x.id===id?{...x,status:"CLOSED"}:x));setMessage("Demo record closed locally. No broker close instruction was sent.");}
 return <main className="mfx-terminal">
 <header className="mfx-topbar"><a className="mfx-brand" href="/dashboard"><span className="mfx-logo">MFX</span><span>MAMBA FX <b>ACADEMY</b><small>TRADING PLATFORM</small></span></a><nav className="mfx-toplinks"><a href="/dashboard">Dashboard</a><a href="/trading-os">AI Trading OS</a><a href="/dashboard#profile">Account</a></nav><div className="mfx-mode"><i/> DEMO ACCOUNT <span>·</span> LIVE LOCKED</div></header>
