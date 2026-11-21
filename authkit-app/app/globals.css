@@ -153,3 +153,19 @@
 .terminal-footer{padding:20px 0;color:#74869a;font-size:9px;text-align:center}
 @media(max-width:1100px){.terminal-layout{grid-template-columns:190px minmax(0,1fr)}.terminal-ticket{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}.terminal-ticket .terminal-panel-title,.terminal-ticket .ticket-side,.terminal-ticket .ticket-summary,.terminal-ticket .ticket-submit,.terminal-ticket .ticket-disclaimer{grid-column:1/-1}}
 @media(max-width:700px){.terminal-shell{padding:12px}.terminal-header{flex-wrap:wrap}.terminal-header-links{order:3;width:100%}.terminal-mode{font-size:8px}.terminal-toolbar{align-items:flex-start;flex-direction:column}.terminal-layout{grid-template-columns:1fr}.terminal-watchlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 8px}.terminal-watchlist .terminal-panel-title,.terminal-watchlist .terminal-connection{grid-column:1/-1}.terminal-chart-head{align-items:flex-start;flex-direction:column}.terminal-chart{height:260px}.terminal-ticket{grid-column:auto;display:block}.terminal-ticket .terminal-panel-title,.terminal-ticket .ticket-side,.terminal-ticket .ticket-summary,.terminal-ticket .ticket-submit,.terminal-ticket .ticket-disclaimer{grid-column:auto}.terminal-warning{align-items:flex-start;flex-direction:column;gap:5px}.terminal-chart-tools{flex-wrap:wrap}.terminal-chart-tools span{width:100%;margin-left:0;text-align:left}}
+
+
+/* Mamba FX Academy refreshed brand palette */
+.dashboard-brand-logo{width:48px;height:48px;object-fit:cover;border-radius:13px;border:1px solid rgba(132,255,172,.55);box-shadow:0 0 20px #2de87935}
+.app-shell{background:radial-gradient(900px 480px at 12% -10%,#123b27 0%,transparent 65%),#030805}
+.app-header{border-color:#234432}
+.app-brand b,.welcome h1 span,.eyebrow,.text-link,.coming{color:#72f29b}
+.avatar{background:#123b27;border-color:#38df7b}
+.main-nav a{border-color:#315a3e;background:rgba(7,22,13,.72)}
+.main-nav a:nth-child(3){background:linear-gradient(135deg,#a6ffbe,#35d873);color:#05200e;border-color:#77f29a}
+.feature-card,.tile,.lower-panel{background:linear-gradient(140deg,rgba(255,255,255,.105),rgba(255,255,255,.025) 45%,rgba(38,230,117,.07));backdrop-filter:blur(22px) saturate(155%);border-color:rgba(195,255,213,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 16px 42px #0008}
+.feature-card{background:linear-gradient(120deg,rgba(18,59,39,.92),rgba(5,18,10,.94) 70%)}
+.gold-button,.primary{background:linear-gradient(135deg,#a6ffbe,#35d873);color:#05200e}
+.tile-icon{background:#123b27;color:#8df5aa}
+.outline-button,.signout{border-color:#3c8051}
+.signout{color:#8df5aa}
