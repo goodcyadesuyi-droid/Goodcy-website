@@ -24,3 +24,5 @@
 .mfx-status{border-color:#31553b;background:rgba(9,26,14,.78)}
 .mfx-footer{color:#90aa98}
 @media(max-width:720px){.mfx-brand-logo{width:46px;height:46px}}
+
+.mfx-provider-actions{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}.mfx-link-button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:11px 16px;border-radius:10px;font-size:12px;font-weight:800}.mfx-disconnect{border:1px solid #52785e;background:transparent;color:#a9c6b5;border-radius:10px;padding:10px 14px;cursor:pointer}.mfx-provider-panel{gap:24px}.mfx-provider-panel>div:first-child{flex:1;min-width:260px}.mfx-provider-panel .mfx-provider-list{flex-wrap:wrap}.mfx-provider-panel .mfx-disclaimer{margin-top:12px;line-height:1.5}
