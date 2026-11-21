@@ -3,69 +3,56 @@
 ## Confirmed configuration
 - Products: Forex/CFD and fixed-time options.
 - Broker strategy: multiple authorized providers through independent adapters.
-- Options: design for eventual live support; real-money execution disabled pending jurisdiction-specific legal authorization, provider approval, licensed market data, settlement specifications and compliance controls.
+- Deriv OAuth app created by the owner: Mamba FX Academy, app ID 351H6KkG4TTezdP4S5Xvt, Trade scope selected, 0% markup.
+- Registered Deriv redirect URI: https://mambafxacademy.com/api/deriv/oauth/callback
 - Repository: goodcyadesuyi-droid/Goodcy-website.
 - Branch: authkit-vercel-setup. Application root: authkit-app.
 
-## Implemented in this phase
-- Replaced the previous terminal preview with a multi-asset workspace.
-- Added Forex/CFD and fixed-time options demo tabs.
-- Added instrument categories, search, watchlist controls, chart-type/timeframe controls, indicator selector, demo tickets, activity tabs and provider status labels.
-- Updated the authenticated member dashboard to remove Friends, Create/MFX Studio and social-video references, replacing them with trading navigation.
-- Kept AuthKit protection on the terminal route.
-- No public landing page or logo asset was intentionally changed.
+## Implemented
+- Replaced the previous terminal preview with a multi-asset workspace and removed the old social-video navigation from the member dashboard.
+- Added Forex/CFD and fixed-time-options demo UI, instrument categories, search, watchlist controls, chart controls, demo tickets and activity tabs.
+- Added Deriv OAuth 2.0 Authorization Code + PKCE start and callback routes. The start route now uses the exact redirect URI registered in Deriv and requests only the Trade scope.
+- The callback validates OAuth state, exchanges the one-time code server-side, calls Deriv's authenticated Options account-list endpoint, requires a demo account, and saves a time-limited encrypted token in an HttpOnly, Secure production cookie.
+- The Deriv integration is deliberately marked OAUTH_READY_PENDING_CONFIG, not sandbox verified. No real account is selected.
+- AuthKit protection remains on the trading terminal. The public homepage and logo asset were not intentionally changed.
 
-## Current limitations
-This is a frontend demo workspace, not a live brokerage platform:
-- Quotes and candles are illustrative static samples, not live or licensed market data.
-- Demo records exist only in client-side React state; no database persistence.
-- Closing a demo record does not close a broker position.
-- Stop Loss and Take Profit are UI inputs only.
-- Options records are local demo placeholders; no live payout, contract quote, expiry engine or settlement source exists.
-- Exness, Deriv, IC Markets, Pepperstone, XM and options providers are not connected.
-- Live execution, deposits, withdrawals and real-money options are not implemented.
-
-## Target server architecture
-Use independent adapters for licensed market data, broker account authentication, Forex/CFD execution, fixed-time options quote/purchase/expiry/settlement, and demo simulation. Each provider adapter must declare supported accounts, regions, instruments, order types, price source, market hours, size rules and settlement semantics. Do not advertise a provider as supported until sandbox tests pass and written production approval exists.
-
-## Financial integrity and security
-- Browser clients never receive broker master credentials.
-- Secrets live only in an approved server-side secret manager.
-- Every account, order and position is bound to the authenticated user and account.
-- Enforce account/product permissions, jurisdiction rules and pre-trade risk checks server-side.
-- Use idempotency keys; persist provider order IDs and confirmed execution states.
-- Never mark an order filled until provider confirmation.
-- Reconcile positions and balances against provider records.
-- Keep immutable audit events for security, order and settlement events.
-- Separate virtual demo ledgers from real-money ledgers.
-- Detect stale quotes; provide loss/exposure controls and a kill switch.
-
-## Multiple-provider evaluation targets
-- Exness / MT5: verify account-type and authorized MT5 gateway compatibility.
-- Deriv: verify product access, API terms and regional restrictions.
-- IC Markets: verify authorized partner integration and supported accounts.
-- Pepperstone: verify authorized API/platform integration.
-- XM: verify approved integration and supported account types.
-- Fixed-time options provider: identify only after legal review and due diligence.
-
-Retail accounts do not automatically grant API, white-label or execution rights. Obtain written provider approval and confirm commercial, data and regional permissions.
-
-## Next milestones
-1. Typed backend domain models and database migrations for users, accounts, instruments, quotes, orders, executions, positions, options contracts, settlements, ledger entries and audit events.
-2. Server-side demo trading with virtual ledger and persistent history.
-3. Integrate one licensed market-data source with feed timestamps.
-4. Define provider adapter interfaces and conformance tests.
-5. Evaluate and contract authorized broker integrations one at a time.
-6. Complete security, KYC/AML, payments and jurisdiction review.
-7. Implement options quote and settlement only after provider and legal approval.
-8. Keep live execution flags off until all gates pass.
-
-## Deployment secret names
-- DATABASE_URL
-- REDIS_URL
-- MARKET_DATA_PROVIDER
-- MARKET_DATA_API_KEY
-- BROKER_ADAPTERS_ENABLED
+## Required deployment configuration
+Set these values as private environment variables in the hosting provider; never paste tokens or secrets into chat or commit them:
+- DERIV_CLIENT_ID=351H6KkG4TTezdP4S5Xvt
+- APP_BASE_URL=https://mambafxacademy.com
+- MFX_DERIV_TOKEN_ENCRYPTION_KEY=<base64-encoded 32-byte random key>
 - LIVE_TRADING_ENABLED=false
 - LIVE_OPTIONS_ENABLED=false
-- Provider credentials only after written authorization. Never commit secret values.
+
+Generate the encryption key with a secure password/key generator (for example, Node: `node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"`). Keep a backup in the hosting provider's secret manager. Rotating the key invalidates existing encrypted Deriv sessions and requires users to reconnect.
+
+## Current limitations and next verification
+- OAuth connection has not yet been run against the deployed domain; no successful Deriv consent or sandbox account verification is claimed.
+- A user must be signed in to Mamba FX Academy, choose Connect Deriv Demo, sign in to Deriv and consent to the Trade scope.
+- The callback verifies account-list access and finds a demo Options account. If Deriv returns no demo account, connection is not marked successful.
+- Token storage currently uses an encrypted, HttpOnly session cookie and is time-limited to the Deriv token expiry. This is not a persistent multi-device broker connection store.
+- The API's successful account-list response proves the granted Trade scope can access that endpoint; it does not by itself verify trade placement, order settlement, or every product permission.
+- The current UI's quotes and candles are illustrative static samples. Demo ticket records are local UI state; they are not yet submitted to Deriv's demo WebSocket.
+- No live execution, real-money options, deposits or withdrawals are enabled.
+- Exness, IC Markets, Pepperstone and XM remain unconfigured.
+
+## Security and financial integrity
+- Never expose broker tokens to browser JavaScript or log authorization codes/tokens.
+- Keep secrets only in the hosting provider's server-side environment.
+- Bind each broker session to the authenticated Mamba FX user.
+- Verify account_type is demo before any demo action; never infer demo status from a balance.
+- Keep live trading and live options disabled with server-side feature flags.
+- Implement idempotency, pre-trade risk checks, audit logs, quote freshness checks and reconciliation before enabling any execution workflow.
+- Do not advertise a provider as supported until sandbox tests pass and written production approval exists.
+
+## Deriv API workflow
+Deriv's current OAuth documentation specifies Authorization Code + PKCE, state validation, backend token exchange at https://auth.deriv.com/oauth2/token and bearer-token API calls. The Trade scope is used for GET /trading/v1/options/accounts. Deriv's Options API uses a short-lived OTP to establish a demo WebSocket session; this remains a separate next step and has not been enabled here.
+
+## Further milestones
+1. Configure the three server environment values above and deploy the branch.
+2. Run OAuth using a signed-in test user and verify Deriv returns a demo Options account.
+3. Add a server-only demo WebSocket adapter using the OTP endpoint and verify demo balance/quotes without enabling live endpoints.
+4. Persist demo orders, executions, positions and audit events in a database.
+5. Integrate licensed market data and provider conformance tests.
+6. Complete jurisdiction-specific legal/compliance review before considering any real-money fixed-time options or live trading.
+7. Keep live execution, deposits and withdrawals disabled until all provider, legal, security and operational gates are approved.
