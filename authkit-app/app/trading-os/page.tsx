@@ -1,51 +1,34 @@
 import { withAuth } from "@workos-inc/authkit-nextjs";
 
-const capabilities = [
-  { title: "AI market research", text: "A workspace for reviewing market context, economic events and technical-analysis notes before making a decision." },
-  { title: "MT5 connection readiness", text: "Designed for a future MetaTrader 5 connection through a broker-approved integration. No broker account is connected yet." },
-  { title: "Risk controls", text: "Plan position size, stop-loss levels, exposure limits and a daily loss limit before any trade is considered." },
-  { title: "Trade journal & review", text: "Keep a record of trade ideas, reasons, outcomes and lessons so decisions can be reviewed." },
+const modules = [
+  ["Nano AI Assistant", "Question answering for trading education, platform help and market concepts. Task execution is permission-gated and is not enabled until a secure AI provider and action services are configured."],
+  ["AGI OS Orchestrator", "The planned coordination layer for approved trading, AI, automation and security services. AGI is a product vision; this application does not claim human-level general intelligence."],
+  ["Broker connections", "Connect through broker-authorized OAuth or a verified server-side gateway. Never enter broker passwords into an unverified web form or share API secrets in chat."],
+  ["Auto Trade", "Strategy execution must validate account eligibility, fresh prices, provider capabilities, position sizing, stop-loss, daily loss limits and kill-switch state before any order."],
+  ["Risk management", "Configure per-trade exposure, maximum daily loss, maximum open positions and emergency stop. Risk controls cannot guarantee profits or prevent all losses."],
+  ["Trade journal & analytics", "Review provider-confirmed executions and account-sourced performance. No illustrative sample should be presented as a real trade or profit."],
 ];
 
 export default async function TradingOSPage() {
   const { user } = await withAuth({ ensureSignedIn: true });
   const displayName = user.firstName || user.email?.split("@")[0] || "Member";
-  return (
-    <main className="os-shell">
-      <header className="os-topbar">
-        <a className="app-brand" href="/dashboard"><span className="brand-mark">MFX</span><span>MAMBA FX <b>ACADEMY</b></span></a>
-        <a className="os-back" href="/dashboard">← Member dashboard</a>
+  return <main style={{minHeight:"100vh",background:"radial-gradient(900px 480px at 12% -10%,#123b27 0%,transparent 65%),#030805",color:"#f4fff7",padding:"24px 18px 50px",fontFamily:"Arial,sans-serif"}}>
+    <div style={{maxWidth:1100,margin:"0 auto"}}>
+      <header style={{display:"flex",justifyContent:"space-between",gap:16,alignItems:"center",flexWrap:"wrap",borderBottom:"1px solid #234432",paddingBottom:18}}>
+        <a href="/dashboard" style={{color:"#8df5aa",textDecoration:"none",fontWeight:900}}>MAMBA FX ACADEMY</a><a href="/terminal" style={{color:"#8df5aa"}}>Trading terminal →</a>
       </header>
-      <section className="os-hero">
-        <div className="os-kicker">MAMBA FX ACADEMY · PREMIUM PRODUCT</div>
-        <h1>Intelligent Trading <span>Operating System</span></h1>
-        <p>Welcome, {displayName}. A premium trading workspace combining AI-assisted research, disciplined risk planning, trade journaling and a future MT5 integration.</p>
-        <div className="os-price">Premium package · $10,000 USD · 1 year</div>
-        <div className="os-status">Product preview — payment verification, broker connection and live trading execution are not enabled.</div>
-        <div className="os-actions"><a className="os-primary" href="/terminal">Open Trading Terminal preview</a><a className="os-secondary" href="#workspace">Explore workspace</a><a className="os-secondary" href="mailto:goodcyadesuyi@gmail.com?subject=Mamba%20FX%20Trading%20OS%20Enquiry">Contact the academy</a></div>
+      <section style={{padding:"36px 0 24px"}}>
+        <div style={{color:"#72f29b",fontSize:11,fontWeight:800,letterSpacing:2}}>NANO TECHNOLOGY AI · AGI OS</div>
+        <h1 style={{fontSize:"clamp(32px,6vw,52px)",margin:"10px 0"}}>Intelligent Trading <span style={{color:"#72f29b"}}>Operating System</span></h1>
+        <p style={{color:"#a9c6b5",lineHeight:1.65,maxWidth:760}}>Welcome, {displayName}. One Mamba FX workspace for trading research, broker connectivity, risk controls and AI assistance.</p>
+        <div style={{display:"inline-block",padding:"10px 14px",border:"1px solid #80652b",borderRadius:12,color:"#e8d9aa",fontSize:12}}>Integration status: AI provider and broker execution are not yet configured. Live trading remains disabled.</div>
       </section>
-      <section className="os-grid" id="workspace">
-        {capabilities.map((item) => <article className="os-card" key={item.title}><h2>{item.title}</h2><p>{item.text}</p></article>)}
-        <article className="os-card">
-          <h2>Two product descriptions</h2>
-          <p><strong>AI-Powered Intelligent Operating System (AI OS)</strong> describes the practical AI-assisted product being planned.</p>
-          <p><strong>AGI-Powered Intelligent Operating System (AGI OS)</strong> is the long-term vision, not a claim that the current app has achieved AGI.</p>
-        </article>
-        <article className="os-card">
-          <h2>Premium access</h2>
-          <p>The proposed package is $10,000 USD for one year. Access must be activated only after a secure payment provider confirms payment and the membership entitlement is recorded.</p>
-        </article>
-        <article className="os-card os-wide">
-          <h2>Before real-money trading is enabled</h2>
-          <ul>
-            <li>Choose and approve a regulated broker and confirm its MT5 integration method.</li>
-            <li>Build server-side trade permissions, account isolation and secure credential handling. Never share broker passwords in chat.</li>
-            <li>Test in a demo account, validate risk limits and add a user-controlled emergency stop.</li>
-            <li>Complete applicable legal, regulatory, privacy and financial-risk disclosures.</li>
-          </ul>
-          <div className="os-callout">This page is currently an authenticated product preview. It does not connect to MT5, place orders, manage funds or verify $10,000 payments. AI analysis can be wrong; trading can cause losses. No returns are guaranteed.</div>
-        </article>
+      <section style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(260px,1fr))",gap:14}}>
+        {modules.map(([title,description])=><article key={title} style={{background:"linear-gradient(140deg,rgba(255,255,255,.11),rgba(255,255,255,.025) 50%,rgba(38,230,117,.07))",border:"1px solid rgba(195,255,213,.22)",borderRadius:18,padding:20,backdropFilter:"blur(20px)"}}><h2 style={{fontSize:18,marginTop:0,color:"#9bffb8"}}>{title}</h2><p style={{fontSize:13,lineHeight:1.65,color:"#c3d8c9"}}>{description}</p></article>)}
       </section>
-    </main>
-  );
+      <aside style={{marginTop:22,padding:18,borderRadius:14,border:"1px solid #315a3e",background:"rgba(9,30,16,.75)",color:"#c3d8c9",fontSize:13,lineHeight:1.65}}>
+        <strong style={{color:"#9bffb8"}}>Free and Pro permissions:</strong> Free members can ask Nano AI questions. Pro members may receive additional task capabilities only after subscription entitlement, user confirmation, scoped permissions and secure action APIs are verified. Computer control and trade execution are never granted by a client-side plan selector.
+      </aside>
+    </div>
+  </main>;
 }
