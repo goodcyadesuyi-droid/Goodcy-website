@@ -7,6 +7,8 @@
 .public-header{height:88px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #26342e;gap:24px}
 .public-wordmark{display:flex;align-items:center;gap:12px;text-decoration:none;font-size:12px;letter-spacing:.16em;font-weight:900;white-space:nowrap}
 .public-wordmark b{color:#d9ad51}
+.public-wordmark img{width:42px;height:42px;object-fit:contain;border-radius:50%;flex:none}
+@media(max-width:600px){.public-wordmark img{width:36px;height:36px}}
 .public-monogram{width:39px;height:39px;border:1px solid #d9ad51;border-radius:50%;display:grid;place-items:center;color:#e4bd68;font-size:11px;letter-spacing:0}
 .public-nav{display:flex;align-items:center;gap:30px}
 .public-nav a,.public-secondary{font-size:13px;color:#c1c8c0;text-decoration:none}
