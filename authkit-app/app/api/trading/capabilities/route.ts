@@ -23,6 +23,8 @@ export async function GET() {
       demoAccountVerification: "PENDING_USER_OAUTH_AND_DEPLOYMENT",
       liveExecution: false,
       demoWebSocketExecution: false,
+      demoWebSocketOtpEndpoint: "/api/deriv/options/otp",
+      demoWebSocketOtpEndpointImplemented: true,
     },
     safety: { liveTradingEnabled: false, liveOptionsEnabled: false, depositsEnabled: false, withdrawalsEnabled: false },
   }, { headers: { "Cache-Control": "no-store" } });
