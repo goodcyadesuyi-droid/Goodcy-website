@@ -56,3 +56,14 @@ Deriv's current OAuth documentation specifies Authorization Code + PKCE, state v
 5. Integrate licensed market data and provider conformance tests.
 6. Complete jurisdiction-specific legal/compliance review before considering any real-money fixed-time options or live trading.
 7. Keep live execution, deposits and withdrawals disabled until all provider, legal, security and operational gates are approved.
+
+
+## Deriv Options demo WebSocket OTP endpoint
+- Added authenticated server route: `POST /api/deriv/options/otp`.
+- It requires a signed-in Mamba FX user and that user's encrypted, unexpired Deriv demo session.
+- The server sends `POST https://api.derivws.com/trading/v1/options/accounts/{accountId}/otp` with the stored Bearer token.
+- The route validates the returned URL is exactly the Deriv demo Options WebSocket host/path and includes an OTP.
+- It returns the ready-to-use one-time WebSocket URL to the signed-in browser with no-store headers. The bearer token is never returned.
+- The URL's OTP is single-use and valid for 120 seconds. The browser must open the WebSocket immediately and request a new OTP if it expires.
+- This endpoint issues credentials for a demo WebSocket only. It does not itself connect the browser, subscribe to data, place a contract, or verify end-to-end streaming. Demo WebSocket execution remains disabled pending client connection, event protocol implementation and sandbox tests.
+- The public WebSocket can be used separately for read-only public market data; it is not an authenticated account stream.
