@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   themeColor: "#07101c",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Mamba FX" },
-  icons: { icon: "/icon.svg", apple: "/icon.svg" },
+  icons: { icon: "/mamba-fx-academy-logo.webp", apple: "/mamba-fx-academy-logo.webp" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
