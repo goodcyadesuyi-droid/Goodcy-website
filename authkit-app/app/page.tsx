@@ -9,7 +9,7 @@ export default function Home() {
     <main className="public-site">
       <header className="public-header">
         <a className="public-wordmark" href="#top" aria-label="Mamba FX Academy home">
-          
+          <img src="/mamba-fx-academy-logo.webp" alt="Mamba FX Academy logo" />
           <span>MAMBA FX <b>ACADEMY</b></span>
         </a>
         <nav className="public-nav" aria-label="Main navigation">
