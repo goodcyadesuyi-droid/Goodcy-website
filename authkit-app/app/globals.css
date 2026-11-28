@@ -171,3 +171,72 @@
 .tile-icon{background:#123b27;color:#8df5aa}
 .outline-button,.signout{border-color:#3c8051}
 .signout{color:#8df5aa}
+
+
+/* Mamba FX green trading command-centre dashboard */
+.mfx-dashboard{min-height:100vh;padding:0 18px 118px;max-width:900px;margin:0 auto;background:radial-gradient(ellipse at 50% -12%,#123b24 0%,#07110b 44%,#030604 100%);color:#f5fff6}
+.mfx-topbar{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #193c27;gap:12px}
+.mfx-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.mfx-brand img{width:48px;height:48px;object-fit:contain;border-radius:50%;background:#030604}
+.mfx-brand span{display:flex;flex-direction:column;gap:2px;font-size:14px;letter-spacing:.04em}
+.mfx-brand strong{color:#4ce36d;font-size:14px}
+.mfx-top-actions{display:flex;align-items:center;gap:10px}
+.mfx-connected{display:inline-flex;align-items:center;gap:7px;border:1px solid #23753c;color:#c9f8d1;border-radius:30px;padding:8px 11px;font-size:11px}
+.mfx-connected i{width:7px;height:7px;background:#42e66c;border-radius:50%;box-shadow:0 0 10px #42e66c}
+.mfx-profile-dot{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:#163d25;border:1px solid #318e4a;text-decoration:none;font-weight:800}
+.mfx-command-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:12px;min-height:220px;margin:16px 0 12px;padding:22px;border:1px solid #26763d;border-radius:22px;background:linear-gradient(120deg,#0d2919,#06110b 65%,#10371d);box-shadow:0 12px 40px #0007}
+.mfx-kicker{font-size:10px;font-weight:900;letter-spacing:.16em;color:#55e879}
+.mfx-hero-copy h1{font-size:clamp(30px,6vw,46px);line-height:1.02;margin:12px 0;letter-spacing:-.04em}
+.mfx-hero-copy h1 em{font-style:normal;color:#4fe875}
+.mfx-hero-copy p{font-size:12px;line-height:1.6;color:#c0d0c4;max-width:420px;margin:0 0 14px}
+.mfx-primary-cta{display:inline-flex;gap:16px;align-items:center;padding:11px 14px;border-radius:10px;background:linear-gradient(90deg,#62f080,#16bd50);color:#031108;text-decoration:none;font-size:12px;font-weight:900}
+.mfx-chart-art{height:170px;position:relative;overflow:hidden;border-radius:15px;background:linear-gradient(150deg,#051a11,#082817);border:1px solid #1d6737}
+.mfx-chart-grid{position:absolute;inset:0;background-image:linear-gradient(#1c60362a 1px,transparent 1px),linear-gradient(90deg,#1c60362a 1px,transparent 1px);background-size:25px 25px}
+.mfx-bars{position:absolute;inset:18px 12px 20px;display:flex;align-items:end;gap:7px}
+.mfx-bars i{display:block;flex:1;background:linear-gradient(180deg,#79ff8f,#0c9f42);border-radius:3px 3px 0 0;box-shadow:0 0 12px #23d75b55}
+.mfx-bars i:nth-child(1){height:22%}.mfx-bars i:nth-child(2){height:36%}.mfx-bars i:nth-child(3){height:30%}.mfx-bars i:nth-child(4){height:48%}.mfx-bars i:nth-child(5){height:42%}.mfx-bars i:nth-child(6){height:62%}.mfx-bars i:nth-child(7){height:57%}.mfx-bars i:nth-child(8){height:78%}.mfx-bars i:nth-child(9){height:95%}
+.mfx-chart-arrow{position:absolute;right:8px;top:0;color:#7cff95;font-size:56px;text-shadow:0 0 18px #4bfa76;transform:rotate(-12deg)}
+.mfx-chart-art>span{position:absolute;bottom:8px;left:12px;font-size:8px;letter-spacing:.18em;color:#b4d7bd}
+.mfx-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 28px}
+.mfx-stats article{display:flex;align-items:center;gap:12px;padding:15px 13px;border:1px solid #216638;border-radius:16px;background:linear-gradient(140deg,#0b2114,#07100a)}
+.mfx-stat-icon{font-size:27px;color:#4ce875}
+.mfx-stats article div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.mfx-stats small{font-size:10px;color:#d3e4d7}
+.mfx-stats strong{font-size:19px;white-space:nowrap}
+.mfx-stats .mfx-muted{font-size:9px;color:#82998a}
+.mfx-stats .mfx-profit{color:#52ed73}
+.mfx-tools-section,.mfx-more-features{margin:28px 0}
+.mfx-section-heading{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:14px}
+.mfx-section-heading h2,.mfx-more-features h2,.mfx-community-strip h2,.mfx-account-panel h2{font-size:21px;margin:6px 0 0}
+.mfx-section-heading>span{font-size:10px;color:#8da392}
+.mfx-tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.mfx-tool-card{min-width:0;padding:15px;border:1px solid #1f6938;border-radius:17px;background:linear-gradient(145deg,#0c2014,#070d09);box-shadow:inset 0 1px #ffffff08}
+.mfx-tool-card-top{display:flex;align-items:center;justify-content:space-between}
+.mfx-tool-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:#123d22;color:#56ee7b;font-size:25px}
+.mfx-card-arrow{color:#4de875;font-size:20px}
+.mfx-tool-card h3{font-size:14px;margin:13px 0 3px}
+.mfx-tool-card>small{font-size:10px;color:#65e982}
+.mfx-tool-card p{font-size:11px;line-height:1.55;color:#a9bcae;min-height:50px;margin:9px 0}
+.mfx-tool-card>a{display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid #1b3a25;color:#64eb83;text-decoration:none;font-size:11px;font-weight:800}
+.mfx-tool-tag{display:block;font-size:8px;letter-spacing:.08em;color:#f3d77b;margin:0 0 9px}
+.mfx-more-features{padding:20px 0;border-top:1px solid #1b3a25}
+.mfx-more-features h2{margin:8px 0 14px}
+.mfx-more-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.mfx-more-grid a{position:relative;display:flex;flex-direction:column;gap:5px;padding:13px 34px 13px 13px;border:1px solid #203d29;border-radius:13px;background:#09140d;text-decoration:none}
+.mfx-more-grid b{font-size:12px;color:#effff1}
+.mfx-more-grid span{font-size:10px;line-height:1.4;color:#92a798}
+.mfx-more-grid i{position:absolute;right:12px;top:12px;font-style:normal;color:#4ce875}
+.mfx-community-strip{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px;border:1px solid #2a7b40;border-radius:17px;background:linear-gradient(110deg,#102c19,#07110b)}
+.mfx-community-strip p{font-size:11px;color:#a9bcae;margin:7px 0 0}
+.mfx-community-strip>a{white-space:nowrap;padding:11px 13px;border-radius:30px;background:#51e876;color:#031108;text-decoration:none;font-size:10px;font-weight:900}
+.mfx-account-panel{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:18px 0;border-bottom:1px solid #1b3a25}
+.mfx-account-panel p{font-size:12px;color:#e4f3e7;margin:8px 0 3px}.mfx-account-panel small{font-size:10px;color:#82998a}
+.mfx-account-panel>div:last-child{display:flex;gap:8px;flex-wrap:wrap}
+.mfx-account-panel>div:last-child a{font-size:10px;color:#6bec89;text-decoration:none;border:1px solid #27673a;padding:9px 11px;border-radius:9px}
+.mfx-bottom-nav{position:fixed;z-index:50;left:50%;bottom:0;transform:translateX(-50%);width:min(900px,100%);display:flex;justify-content:space-around;align-items:center;padding:9px 4px max(10px,env(safe-area-inset-bottom));background:#101411f5;border-top:1px solid #28412e;backdrop-filter:blur(18px)}
+.mfx-bottom-nav a{min-width:0;display:flex;flex:1;flex-direction:column;align-items:center;gap:4px;color:#aeb9b0;text-decoration:none;font-size:9px;font-weight:700}
+.mfx-bottom-nav a>span{font-size:21px;line-height:25px}
+.mfx-bottom-nav a.active{color:#54ed79}
+.mfx-bottom-nav a.create-nav>span{width:42px;height:36px;border-radius:13px;background:linear-gradient(120deg,#5cf07e,#16bc52);color:#031108;display:grid;place-items:center;font-size:29px;box-shadow:0 0 18px #39e96b55}
+.mfx-footer{text-align:center;padding:18px 0;color:#6f8174;font-size:9px}
+@media(max-width:520px){.mfx-dashboard{padding-left:13px;padding-right:13px}.mfx-command-hero{grid-template-columns:1fr;min-height:0;padding:18px}.mfx-chart-art{height:120px}.mfx-stats article{padding:12px 9px;gap:8px}.mfx-stats strong{font-size:16px}.mfx-tool-card{padding:13px}.mfx-section-heading{align-items:flex-start;flex-direction:column}.mfx-section-heading h2{font-size:19px}.mfx-community-strip{align-items:flex-start;flex-direction:column}.mfx-account-panel{align-items:flex-start;flex-direction:column}.mfx-brand img{width:42px;height:42px}.mfx-connected{font-size:9px}}
