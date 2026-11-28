@@ -26,3 +26,22 @@
 @media(max-width:720px){.mfx-brand-logo{width:46px;height:46px}}
 
 .mfx-provider-actions{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}.mfx-link-button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:11px 16px;border-radius:10px;font-size:12px;font-weight:800}.mfx-disconnect{border:1px solid #52785e;background:transparent;color:#a9c6b5;border-radius:10px;padding:10px 14px;cursor:pointer}.mfx-provider-panel{gap:24px}.mfx-provider-panel>div:first-child{flex:1;min-width:260px}.mfx-provider-panel .mfx-provider-list{flex-wrap:wrap}.mfx-provider-panel .mfx-disclaimer{margin-top:12px;line-height:1.5}
+
+/* Trading terminal: vivid emerald glass panels */
+.mfx-terminal{max-width:1100px;padding:12px 14px 35px;background:radial-gradient(ellipse at 50% -5%,#0b4828 0%,#04130a 46%,#020604 100%);min-height:100vh}
+.mfx-topbar{border-color:#1b4a2d}.mfx-brand-logo{width:52px;height:52px;border:1px solid #3be978;border-radius:50%;object-fit:cover;box-shadow:0 0 18px #29ed6a55}
+.mfx-toplinks a{color:#d0e9d6}.mfx-mode{border:1px solid #2c9b53;border-radius:22px;padding:8px 11px;background:#0c2918;color:#86f5a6}
+.mfx-heading h1{font-size:clamp(25px,5vw,36px);color:#f5fff7}.mfx-heading p{color:#aac4b1}.mfx-account-card{border-color:#2a9b50;background:linear-gradient(135deg,#0d301b,#07150c)}
+.mfx-terminal-shortcuts{display:flex;gap:7px;overflow-x:auto;padding:6px 0 13px}.mfx-terminal-shortcuts a{flex:none;text-decoration:none;font-size:10px;color:#c5e9cf;border:1px solid #2b7542;border-radius:18px;padding:8px 12px;background:#091b10}
+.mfx-safety{border-color:#3b9b59;background:linear-gradient(110deg,#0d351d,#0a1b10);color:#c7e4ce}.mfx-safety b{color:#a0ffb7}
+.mfx-market-tabs{gap:8px;margin:14px 0 17px}.mfx-market-tabs button{min-width:78px;border-radius:24px;padding:11px 14px;background:#0a1710;border-color:#31573b;color:#d9e9dc}.mfx-market-tabs button.selected{background:linear-gradient(120deg,#9affb2,#17d75e);border-color:#67ff90;color:#04200d;box-shadow:0 0 16px #2ee76b88;font-weight:900}
+.mfx-panel,.mfx-account-card,.mfx-provider-panel{border:1px solid rgba(115,235,147,.28);background:linear-gradient(145deg,rgba(13,44,24,.96),rgba(4,14,8,.97));box-shadow:inset 0 1px #ffffff12,0 12px 32px #0008}
+.mfx-chart{height:330px;border:1px solid #244b30;background-color:#041109;background-image:linear-gradient(#173322 1px,transparent 1px),linear-gradient(90deg,#173322 1px,transparent 1px);background-size:25% 20%}
+.mfx-chart-grid{color:#8ca994}.mfx-chart-top strong,.mfx-chart-top .up{color:#53ed82}.mfx-chart-selects select,.mfx-chart-tools select{background:#07180d;border-color:#315b3a;color:#d9f2df}
+.mfx-chart-tools button{background:#0b2414;border-color:#347b47;color:#bff4cb}.mfx-tabs button.active{background:#124a28;border-color:#49dc76;color:#a6ffbb}
+.mfx-ticket label{color:#b4cfbc}.mfx-ticket input,.mfx-ticket select{background:#06140b;border-color:#315b3a;color:#f1fff4}
+.mfx-side-buttons .buy.active{background:linear-gradient(120deg,#17d95a,#087c35);border-color:#57f58a;color:white;box-shadow:0 0 15px #22eb6a55}
+.mfx-side-buttons .sell.active{background:linear-gradient(120deg,#ff5964,#c90e2c);border-color:#ff7881;color:white;box-shadow:0 0 15px #ed1e3d44}
+.mfx-submit{background:linear-gradient(120deg,#9affb1,#14d65a);color:#04190b;font-size:12px;box-shadow:0 5px 18px #25e86a30}
+.mfx-provider-list span{background:#07180d;border-color:#2e6540;color:#d7eddd}.mfx-status{border-color:#286b3d;background:#07170c;color:#b9e5c4}.mfx-footer{color:#83a18c}
+@media(max-width:720px){.mfx-terminal{padding:8px 10px 28px}.mfx-topbar{gap:10px}.mfx-brand-logo{width:44px;height:44px}.mfx-toplinks{gap:13px}.mfx-toplinks a{font-size:10px}.mfx-heading{padding:18px 0}.mfx-market-tabs button{min-width:0;flex:1;padding:10px 8px;font-size:10px}.mfx-chart{height:260px}.mfx-terminal-shortcuts a{font-size:9px;padding:7px 10px}}
