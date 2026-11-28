@@ -240,3 +240,25 @@
 .mfx-bottom-nav a.create-nav>span{width:42px;height:36px;border-radius:13px;background:linear-gradient(120deg,#5cf07e,#16bc52);color:#031108;display:grid;place-items:center;font-size:29px;box-shadow:0 0 18px #39e96b55}
 .mfx-footer{text-align:center;padding:18px 0;color:#6f8174;font-size:9px}
 @media(max-width:520px){.mfx-dashboard{padding-left:13px;padding-right:13px}.mfx-command-hero{grid-template-columns:1fr;min-height:0;padding:18px}.mfx-chart-art{height:120px}.mfx-stats article{padding:12px 9px;gap:8px}.mfx-stats strong{font-size:16px}.mfx-tool-card{padding:13px}.mfx-section-heading{align-items:flex-start;flex-direction:column}.mfx-section-heading h2{font-size:19px}.mfx-community-strip{align-items:flex-start;flex-direction:column}.mfx-account-panel{align-items:flex-start;flex-direction:column}.mfx-brand img{width:42px;height:42px}.mfx-connected{font-size:9px}}
+
+/* Dedicated Mamba FX module pages */
+.mfx-tool-card{display:block;color:inherit;text-decoration:none;cursor:pointer;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
+.mfx-tool-card:hover,.mfx-tool-card:focus-visible{transform:translateY(-2px);border-color:#65f08a;box-shadow:0 10px 30px #20db5b20;outline:none}
+.mfx-tool-open{display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid #1b3a25;color:#64eb83;font-size:11px;font-weight:800}
+.mfx-module-page{min-height:100vh;padding:22px 18px 60px;background:radial-gradient(ellipse at 50% -12%,#123b24 0%,#07110b 44%,#030604 100%);color:#f5fff6;font-family:Arial,sans-serif}
+.mfx-module-page>header{max-width:1000px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #234432;padding:10px 0 18px;color:#60e982;font-size:11px;font-weight:900;letter-spacing:.12em}
+.mfx-module-page>header a{color:#a6f5b8;text-decoration:none;letter-spacing:0}
+.mfx-module-hero,.mfx-module-grid,.mfx-module-button,.mfx-module-page footer{max-width:1000px;margin-left:auto;margin-right:auto}
+.mfx-module-hero{padding:42px 0 26px}
+.mfx-module-hero>small{color:#65ee88;font-weight:900;letter-spacing:.17em;font-size:10px}
+.mfx-module-hero h1{font-size:clamp(34px,7vw,58px);letter-spacing:-.04em;margin:10px 0}
+.mfx-module-hero h1 em{font-style:normal;color:#5aeb7d}
+.mfx-module-hero p{color:#bad0c0;max-width:720px;font-size:14px;line-height:1.7}
+.mfx-module-status{display:inline-block;margin-top:10px;padding:10px 13px;border:1px solid #80652b;border-radius:10px;color:#eadcae;background:#33270c55;font-size:11px;line-height:1.5}
+.mfx-module-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}
+.mfx-module-grid article{padding:20px;border:1px solid #286b3d;border-radius:17px;background:linear-gradient(145deg,#102719,#07100a)}
+.mfx-module-grid h2{font-size:17px;color:#9affb4;margin:0 0 10px}
+.mfx-module-grid p{font-size:13px;color:#b4c9ba;line-height:1.65}
+.mfx-module-grid a{color:#65ee88;text-decoration:none;font-size:12px;font-weight:800}
+.mfx-module-button{display:inline-block;margin-top:22px;padding:13px 17px;border-radius:10px;background:linear-gradient(90deg,#62f080,#16bd50);color:#031108;text-decoration:none;font-weight:900;font-size:12px}
+.mfx-module-page footer{display:block;margin-top:30px;padding-top:15px;border-top:1px solid #203a29;color:#839889;font-size:10px;line-height:1.6}
