@@ -2,10 +2,11 @@ import { withAuth } from "@workos-inc/authkit-nextjs";
 
 const tools = [
   { icon: "▥", title: "Trading Terminal", subtitle: "Forex / Options", description: "Open charts, explore markets and practise with a demo workspace.", href: "/terminal", action: "Open terminal" },
-  { icon: "↗", title: "Futures", subtitle: "Futures markets", description: "Explore futures contracts, margin, expiry and educational market tools.", href: "/futures", action: "Open futures" },\n  { icon: "↗", title: "Deriv Demo Connection", subtitle: "Demo account", description: "Connect through Deriv's official account authorisation flow.", href: "/api/deriv/oauth/start", action: "Connect Deriv", tag: "DEMO ONLY · LIVE TRADING OFF" },
+  { icon: "↗", title: "Futures", subtitle: "Futures markets", description: "Explore futures contracts, margin, expiry and educational market tools.", href: "/futures", action: "Open futures" },
+  { icon: "↗", title: "Deriv Demo Connection", subtitle: "Demo account", description: "Connect through Deriv's official account authorisation flow.", href: "/api/deriv/oauth/start", action: "Connect Deriv", tag: "DEMO ONLY · LIVE TRADING OFF" },
   { icon: "◉", title: "Nano AI Assistant", subtitle: "Ask & learn", description: "Get help understanding markets, trading concepts and platform features.", href: "/nano-ai", action: "Open Nano AI" },
   { icon: "✧", title: "AGI OS", subtitle: "Smart trading assistant", description: "Explore the assistant workspace. Actions require secure setup and your approval.", href: "/agi-os", action: "Open AGI OS" },
-  { icon: "⬡", title: "Risk Management", subtitle: "Set limits", description: "Review position sizing, stop-loss planning and risk controls.", href: "/risk-management", action: "Manage risk" },
+  { icon: "⬡", title: "Risk Manager", subtitle: "Set limits", description: "Review position sizing, stop-loss planning and risk controls.", href: "/risk-management", action: "Manage risk" },
   { icon: "♛", title: "CEO Control Panel", subtitle: "Admin access", description: "Protected controls for platform settings, integrations and oversight.", href: "/admin", action: "Open CEO panel", tag: "APPROVED ADMINS ONLY" },
 ];
 
