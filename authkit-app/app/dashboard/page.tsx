@@ -1,14 +1,70 @@
 import { withAuth } from "@workos-inc/authkit-nextjs";
-export default async function Dashboard(){
-const {user}=await withAuth({ensureSignedIn:true});
-const displayName=user.firstName||user.email?.split("@")[0]||"Trader";
-return <main className="app-shell"><header className="app-header"><a className="app-brand" href="/dashboard"><img className="dashboard-brand-logo" src="/mamba-fx-academy-logo.webp" alt="Mamba FX Academy logo"/><span>MAMBA FX <b>ACADEMY</b></span></a><a className="avatar" href="#profile" aria-label="Your profile">{displayName.slice(0,1).toUpperCase()}</a></header>
-<section className="welcome"><div className="eyebrow">TRADING MEMBER WORKSPACE</div><h1>Welcome back, <span>{displayName}</span></h1><p>Your trading tools, market practice and education in one place.</p></section>
-<nav className="main-nav" aria-label="Trading navigation"><a href="/dashboard">Dashboard</a><a href="/terminal">Trade</a><a href="/terminal">Markets</a><a href="/terminal">Portfolio</a><a href="/trading-os">AI Trading OS</a><a href="#profile">Profile</a></nav>
-<section className="content-grid"><article className="feature-card"><div className="eyebrow">MAMBA FX TRADING PLATFORM</div><h2>Analyse the market.<br/><span>Trade with a plan.</span></h2><p>Explore a multi-asset workspace with charting, market watch, demo practice and portfolio tools.</p><a className="gold-button" href="/terminal">Open trading terminal →</a></article>
-<article className="tile"><div className="tile-icon">↗</div><h3>Trading terminal</h3><p>Forex/CFD and fixed-time options demo workspace.</p><a className="text-link" href="/terminal">Open terminal →</a></article>
-<article className="tile"><div className="tile-icon">⌁</div><h3>Markets & analysis</h3><p>Explore instruments, chart controls and technical-analysis tools.</p><a className="text-link" href="/terminal">Explore markets →</a></article>
-<article className="tile"><div className="tile-icon">◷</div><h3>Trading education</h3><p>Learn market fundamentals, risk awareness and disciplined trading.</p><span className="coming">Education content setup next</span></article>
-<article className="tile"><div className="tile-icon">✦</div><h3>Nano AI &amp; AGI OS</h3><p>AI assistant and permission-gated trading orchestration workspace. AI actions are not enabled until secure model services are configured.</p><a className="text-link" href="/trading-os">Open Nano AI / AGI OS →</a></article><article className="tile"><div className="tile-icon">↔</div><h3>Deriv broker connection</h3><p>Connect your Deriv account through the official OAuth flow. The current integration is restricted to demo account verification.</p><a className="text-link" href="/api/deriv/oauth/start">Connect Deriv demo →</a><span className="coming">Demo only · Live trading disabled</span></article><article className="tile"><div className="tile-icon">⌘</div><h3>CEO Control Centre</h3><p>Review broker integration, AI, auto-trading, risk and security readiness.</p><a className="text-link" href="/admin">Open CEO panel →</a><span className="coming">Restricted to approved administrators</span></article></section>
-<section id="profile" className="lower-panel profile-panel"><div><div className="eyebrow">YOUR ACCOUNT</div><h2>Profile & settings</h2><p className="account-email">{user.email}</p><p>Account access is protected by your WorkOS AuthKit session.</p></div><div className="account-actions"><a className="outline-button" href="mailto:support@mambafxacademy.com?subject=Account%20settings">Account help</a><a className="signout" href="/sign-out">Sign out</a></div></section><footer className="app-footer">Mamba FX Academy · Educational content only. Trading involves risk.</footer></main>;
+
+const tools = [
+  { icon: "▥", title: "Trading Terminal", subtitle: "Forex / Options", description: "Open charts, explore markets and practise with a demo workspace.", href: "/terminal", action: "Open terminal" },
+  { icon: "↗", title: "Deriv Demo Connection", subtitle: "Demo account", description: "Connect through Deriv's official account authorisation flow.", href: "/api/deriv/oauth/start", action: "Connect Deriv", tag: "DEMO ONLY · LIVE TRADING OFF" },
+  { icon: "◉", title: "Nano AI Assistant", subtitle: "Ask & learn", description: "Get help understanding markets, trading concepts and platform features.", href: "/trading-os", action: "Open Nano AI" },
+  { icon: "✧", title: "AGI OS", subtitle: "Smart trading assistant", description: "Explore the assistant workspace. Actions require secure setup and your approval.", href: "/trading-os", action: "Open AGI OS" },
+  { icon: "⬡", title: "Risk Management", subtitle: "Set limits", description: "Review position sizing, stop-loss planning and risk controls.", href: "/terminal", action: "Manage risk" },
+  { icon: "♛", title: "CEO Control Panel", subtitle: "Admin access", description: "Protected controls for platform settings, integrations and oversight.", href: "/admin", action: "Open CEO panel", tag: "APPROVED ADMINS ONLY" },
+];
+
+export default async function Dashboard() {
+  const { user } = await withAuth({ ensureSignedIn: true });
+  const displayName = user.firstName || user.email?.split("@")[0] || "Trader";
+
+  return (
+    <main className="mfx-dashboard">
+      <header className="mfx-topbar">
+        <a className="mfx-brand" href="/dashboard">
+          <img src="/mamba-fx-academy-logo.webp" alt="Mamba FX Academy official logo" />
+          <span><b>MAMBA FX</b><strong>ACADEMY</strong></span>
+        </a>
+        <div className="mfx-top-actions"><span className="mfx-connected"><i /> Demo workspace</span><a className="mfx-profile-dot" href="#profile" aria-label="Profile">{displayName.slice(0,1).toUpperCase()}</a></div>
+      </header>
+
+      <section className="mfx-command-hero">
+        <div className="mfx-hero-copy"><div className="mfx-kicker">YOUR TRADING COMMAND CENTRE</div><h1>Learn. Trade.<br/><em>Trade smarter.</em></h1><p>Welcome back, {displayName}. Your trading tools, learning resources and AI workspace are together in one place.</p><a href="/terminal" className="mfx-primary-cta">Explore trading terminal <span>↗</span></a></div>
+        <div className="mfx-chart-art" aria-hidden="true"><div className="mfx-chart-grid"/><div className="mfx-bars"><i/><i/><i/><i/><i/><i/><i/><i/><i/></div><div className="mfx-chart-arrow">↗</div><span>MARKET WORKSPACE</span></div>
+      </section>
+
+      <section className="mfx-stats" aria-label="Demo account overview">
+        <article><span className="mfx-stat-icon">▣</span><div><small>Demo balance</small><strong>$10,000.00</strong><small className="mfx-muted">Illustrative preview balance</small></div></article>
+        <article><span className="mfx-stat-icon">↗</span><div><small>Today's P/L</small><strong className="mfx-profit">+$0.00</strong><small className="mfx-muted">No live account data connected</small></div></article>
+      </section>
+
+      <section className="mfx-tools-section" id="features">
+        <div className="mfx-section-heading"><div><div className="mfx-kicker">MAMBA FX TOOLS</div><h2>Your platform features</h2></div><span>Choose a workspace to continue</span></div>
+        <div className="mfx-tool-grid">
+          {tools.map((tool) => <article className="mfx-tool-card" key={tool.title}><div className="mfx-tool-card-top"><span className="mfx-tool-icon">{tool.icon}</span><span className="mfx-card-arrow">↗</span></div><h3>{tool.title}</h3><small>{tool.subtitle}</small><p>{tool.description}</p>{tool.tag && <span className="mfx-tool-tag">{tool.tag}</span>}<a href={tool.href}>{tool.action} <b>→</b></a></article>)}
+        </div>
+      </section>
+
+      <section className="mfx-more-features">
+        <div className="mfx-kicker">MORE FROM THE ACADEMY</div><h2>Everything you need to keep learning</h2>
+        <div className="mfx-more-grid">
+          <a href="/terminal"><b>Market Watch</b><span>Explore instruments and market movements</span><i>↗</i></a>
+          <a href="/terminal"><b>Charts & Analysis</b><span>Practise chart reading and technical analysis</span><i>↗</i></a>
+          <a href="/terminal"><b>Lot Size Calculator</b><span>Estimate position size before a trade</span><i>↗</i></a>
+          <a href="/terminal"><b>Take Profit & Stop Loss</b><span>Plan exits and understand trade risk</span><i>↗</i></a>
+          <a href="/trading-os"><b>Trading Journal</b><span>Build consistent review habits</span><i>↗</i></a>
+          <a href="/trading-os"><b>Help & Support</b><span>Get help with your academy account</span><i>↗</i></a>
+        </div>
+      </section>
+
+      <section className="mfx-community-strip"><div><div className="mfx-kicker">MAMBA FX ACADEMY</div><h2>Strike Fast. Trade Smart.</h2><p>Build knowledge, practise carefully and develop disciplined trading habits.</p></div><a href="mailto:goodcyadesuyi@gmail.com">Contact the academy →</a></section>
+
+      <section className="mfx-account-panel" id="profile"><div><div className="mfx-kicker">YOUR ACCOUNT</div><h2>Profile & settings</h2><p>{user.email}</p><small>Protected by your AuthKit sign-in session.</small></div><div><a href="mailto:goodcyadesuyi@gmail.com">Account help</a><a href="/sign-out">Sign out</a></div></section>
+
+      <nav className="mfx-bottom-nav" aria-label="Main app navigation">
+        <a className="active" href="/dashboard"><span>⌂</span>Home</a>
+        <a href="/dashboard#features"><span>♧</span>Friends</a>
+        <a className="create-nav" href="/dashboard#features"><span>＋</span>Create</a>
+        <a href="mailto:goodcyadesuyi@gmail.com"><span>▢</span>Inbox</a>
+        <a href="#profile"><span>◉</span>Profile</a>
+        <a href="/terminal"><span>↗</span>Trade</a>
+      </nav>
+      <footer className="mfx-footer">Mamba FX Academy · Educational workspace · Trading involves risk. Live trading is disabled.</footer>
+    </main>
+  );
 }
