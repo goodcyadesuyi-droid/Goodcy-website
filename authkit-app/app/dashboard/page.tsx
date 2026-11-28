@@ -1,71 +1,13 @@
 import { withAuth } from "@workos-inc/authkit-nextjs";
-
-const tools = [
-  { icon: "▥", title: "Trading Terminal", subtitle: "Forex / Options", description: "Open charts, explore markets and practise with a demo workspace.", href: "/terminal", action: "Open terminal" },
-  { icon: "↗", title: "Futures", subtitle: "Futures markets", description: "Explore futures contracts, margin, expiry and educational market tools.", href: "/futures", action: "Open futures" },
-  { icon: "↗", title: "Deriv Demo Connection", subtitle: "Demo account", description: "Connect through Deriv's official account authorisation flow.", href: "/api/deriv/oauth/start", action: "Connect Deriv", tag: "DEMO ONLY · LIVE TRADING OFF" },
-  { icon: "◉", title: "Nano AI Assistant", subtitle: "Ask & learn", description: "Get help understanding markets, trading concepts and platform features.", href: "/nano-ai", action: "Open Nano AI" },
-  { icon: "✧", title: "AGI OS", subtitle: "Smart trading assistant", description: "Explore the assistant workspace. Actions require secure setup and your approval.", href: "/agi-os", action: "Open AGI OS" },
-  { icon: "⬡", title: "Risk Manager", subtitle: "Set limits", description: "Review position sizing, stop-loss planning and risk controls.", href: "/risk-management", action: "Manage risk" },
-  { icon: "♛", title: "CEO Control Panel", subtitle: "Admin access", description: "Protected controls for platform settings, integrations and oversight.", href: "/admin", action: "Open CEO panel", tag: "APPROVED ADMINS ONLY" },
-];
-
-export default async function Dashboard() {
-  const { user } = await withAuth({ ensureSignedIn: true });
-  const displayName = user.firstName || user.email?.split("@")[0] || "Trader";
-
-  return (
-    <main className="mfx-dashboard">
-      <header className="mfx-topbar">
-        <a className="mfx-brand" href="/dashboard">
-          <img src="/mamba-fx-academy-logo.webp" alt="Mamba FX Academy official logo" />
-          <span><b>MAMBA FX</b><strong>ACADEMY</strong></span>
-        </a>
-        <div className="mfx-top-actions"><span className="mfx-connected"><i /> Demo workspace</span><a className="mfx-profile-dot" href="#profile" aria-label="Profile">{displayName.slice(0,1).toUpperCase()}</a></div>
-      </header>
-
-      <section className="mfx-command-hero">
-        <div className="mfx-hero-copy"><div className="mfx-kicker">YOUR TRADING COMMAND CENTRE</div><h1>Learn. Trade.<br/><em>Trade smarter.</em></h1><p>Welcome back, {displayName}. Your trading tools, learning resources and AI workspace are together in one place.</p><a href="/terminal" className="mfx-primary-cta">Explore trading terminal <span>↗</span></a></div>
-        <div className="mfx-chart-art" aria-hidden="true"><div className="mfx-chart-grid"/><div className="mfx-bars"><i/><i/><i/><i/><i/><i/><i/><i/><i/></div><div className="mfx-chart-arrow">↗</div><span>MARKET WORKSPACE</span></div>
-      </section>
-
-      <section className="mfx-stats" aria-label="Demo account overview">
-        <article><span className="mfx-stat-icon">▣</span><div><small>Demo balance</small><strong>$10,000.00</strong><small className="mfx-muted">Illustrative preview balance</small></div></article>
-        <article><span className="mfx-stat-icon">↗</span><div><small>Today's P/L</small><strong className="mfx-profit">+$0.00</strong><small className="mfx-muted">No live account data connected</small></div></article>
-      </section>
-
-      <section className="mfx-tools-section" id="features">
-        <div className="mfx-section-heading"><div><div className="mfx-kicker">MAMBA FX TOOLS</div><h2>Your platform features</h2></div><span>Choose a workspace to continue</span></div>
-        <div className="mfx-tool-grid">
-          {tools.map((tool) => <a className="mfx-tool-card" key={tool.title} href={tool.href}><div className="mfx-tool-card-top"><span className="mfx-tool-icon">{tool.icon}</span><span className="mfx-card-arrow">↗</span></div><h3>{tool.title}</h3><small>{tool.subtitle}</small><p>{tool.description}</p>{tool.tag && <span className="mfx-tool-tag">{tool.tag}</span>}<span className="mfx-tool-open">{tool.action} <b>→</b></span></a>)}
-        </div>
-      </section>
-
-      <section className="mfx-more-features">
-        <div className="mfx-kicker">MORE FROM THE ACADEMY</div><h2>Everything you need to keep learning</h2>
-        <div className="mfx-more-grid">
-          <a href="/terminal"><b>Market Watch</b><span>Explore instruments and market movements</span><i>↗</i></a>
-          <a href="/terminal"><b>Charts & Analysis</b><span>Practise chart reading and technical analysis</span><i>↗</i></a>
-          <a href="/risk-management"><b>Lot Size Calculator</b><span>Estimate position size before a trade</span><i>↗</i></a>
-          <a href="/risk-management"><b>Take Profit & Stop Loss</b><span>Plan exits and understand trade risk</span><i>↗</i></a>
-          <a href="/agi-os"><b>Trading Journal</b><span>Build consistent review habits</span><i>↗</i></a>
-          <a href="/trading-os"><b>Help & Support</b><span>Get help with your academy account</span><i>↗</i></a>
-        </div>
-      </section>
-
-      <section className="mfx-community-strip"><div><div className="mfx-kicker">MAMBA FX ACADEMY</div><h2>Strike Fast. Trade Smart.</h2><p>Build knowledge, practise carefully and develop disciplined trading habits.</p></div><a href="mailto:goodcyadesuyi@gmail.com">Contact the academy →</a></section>
-
-      <section className="mfx-account-panel" id="profile"><div><div className="mfx-kicker">YOUR ACCOUNT</div><h2>Profile & settings</h2><p>{user.email}</p><small>Protected by your AuthKit sign-in session.</small></div><div><a href="mailto:goodcyadesuyi@gmail.com">Account help</a><a href="/sign-out">Sign out</a></div></section>
-
-      <nav className="mfx-bottom-nav" aria-label="Main app navigation">
-        <a className="active" href="/dashboard"><span>⌂</span>Home</a>
-        <a href="/dashboard#features"><span>♧</span>Friends</a>
-        <a className="create-nav" href="/dashboard#features"><span>＋</span>Create</a>
-        <a href="mailto:goodcyadesuyi@gmail.com"><span>▢</span>Inbox</a>
-        <a href="#profile"><span>◉</span>Profile</a>
-        <a href="/terminal"><span>↗</span>Trade</a>
-      </nav>
-      <footer className="mfx-footer">Mamba FX Academy · Educational workspace · Trading involves risk. Live trading is disabled.</footer>
-    </main>
-  );
-}
+const tools=[{icon:"▥",title:"Trading Terminal",sub:"Forex / CFD & Options",href:"/terminal",tone:"green"},{icon:"D",title:"Deriv Demo",sub:"Connect account",href:"/api/deriv/oauth/start",tone:"red",tag:"DEMO ONLY"},{icon:"◉",title:"Nano AI",sub:"Ask & Learn",href:"/nano-ai",tone:"cyan"},{icon:"✧",title:"AGI OS",sub:"Smart Automation",href:"/agi-os",tone:"blue"},{icon:"⬡",title:"Risk Management",sub:"Protect your capital",href:"/risk-management",tone:"green"},{icon:"♛",title:"CEO Panel",sub:"Admin Control",href:"/admin",tone:"gold",tag:"AUTHORISED ADMINS"}];
+const markets=[{symbol:"EUR/USD",price:"1.1573",change:"+0.12%"},{symbol:"GBP/USD",price:"1.3276",change:"+0.08%"},{symbol:"BTC/USD",price:"93,842.50",change:"+1.26%"}];
+export default async function Dashboard(){const {user}=await withAuth({ensureSignedIn:true});const name=user.firstName||user.email?.split("@")[0]||"Trader";return <main className="mfx-home">
+<header className="mfx-home-header"><a className="mfx-home-brand" href="/dashboard"><img src="/mamba-fx-academy-logo.webp" alt="Mamba FX Academy official logo"/><span><b>MAMBA FX</b><strong>ACADEMY</strong><small>STRIKE FAST. TRADE SMART.</small></span></a><div className="mfx-header-actions"><a href="#notifications" aria-label="Notifications">♧<i>3</i></a><a href="#settings" aria-label="Settings">⚙</a></div></header>
+<section className="mfx-member-strip"><div className="mfx-member-avatar">{name.slice(0,1).toUpperCase()}</div><div className="mfx-member-copy"><b>{name} <span>✓</span></b><small>♛ &nbsp; Academy Member</small></div><span className="mfx-member-plan">PRO</span></section>
+<section className="mfx-snake-banner"><div className="mfx-snake-art" aria-hidden="true"><div className="mfx-snake-orbit"/><div className="mfx-snake-eye"/><div className="mfx-snake-jaw"/></div><div className="mfx-banner-copy"><small>THE MAMBA EDGE</small><h1>MAMBA FX<br/><em>ACADEMY</em></h1><b>LEARN · TRADE · EARN</b><span>↗</span></div><div className="mfx-banner-bars"><i/><i/><i/><i/><i/></div></section>
+<section className="mfx-home-section" id="features"><div className="mfx-home-section-title"><div><small>YOUR TRADING COMMAND CENTRE</small><h2>Choose your workspace</h2></div><a href="/terminal">View all ↗</a></div><div className="mfx-home-tool-grid">{tools.map(t=><a href={t.href} key={t.title} className={"mfx-home-tool "+t.tone}><span className="mfx-home-tool-icon">{t.icon}</span><span className="mfx-home-tool-copy"><b>{t.title}</b><small>{t.sub}</small>{t.tag&&<i>{t.tag}</i>}</span><span className="mfx-home-tool-arrow">›</span></a>)}</div></section>
+<section className="mfx-market-overview"><div className="mfx-market-overview-head"><b>◉ &nbsp; Live Market Overview</b><span><i/> Preview feed</span></div><div className="mfx-market-overview-grid">{markets.map(m=><a href="/terminal" key={m.symbol}><small>{m.symbol}</small><b>{m.price}</b><em>▲ {m.change}</em></a>)}</div><p>Illustrative examples — connect a verified provider for live quotes.</p></section>
+<section className="mfx-ai-strip"><div className="mfx-ai-orb">✧</div><div><b>Mamba FX AI Assistant</b><small>Your intelligent trading companion</small></div><a href="/nano-ai">Chat Now ›</a></section>
+<section className="mfx-home-extras"><div className="mfx-home-section-title"><div><small>MORE PLATFORM TOOLS</small><h2>Explore Mamba FX</h2></div></div><div className="mfx-extra-grid"><a href="/futures"><b>Futures Market</b><small>Contracts · Margin · Expiry</small><span>↗</span></a><a href="/risk-management"><b>Lot Size Calculator</b><small>Position sizing & risk budget</small><span>↗</span></a><a href="/risk-management"><b>Stop Loss & Take Profit</b><small>Plan trade exits</small><span>↗</span></a><a href="/terminal"><b>Charts & Indicators</b><small>Technical analysis workspace</small><span>↗</span></a><a href="/agi-os"><b>Trading Journal</b><small>Review trading habits</small><span>↗</span></a><a href="#settings"><b>Settings & Support</b><small>Account and academy help</small><span>↗</span></a></div></section>
+<section className="mfx-home-profile" id="settings"><div><small>YOUR ACCOUNT</small><b>{user.email}</b><span>Protected by AuthKit</span></div><a href="/sign-out">Sign out</a></section>
+<nav className="mfx-home-bottom" aria-label="Main navigation"><a className="selected" href="/dashboard"><span>⌂</span>Home</a><a href="#features"><span>♧</span>Friends</a><a className="create" href="#features"><span>＋</span>Create</a><a href="#notifications"><span>▢</span>Inbox</a><a href="#settings"><span>♙</span>Profile</a><a href="/terminal"><span>◉</span>Help Trade</a></nav><footer className="mfx-home-footer">Mamba FX Academy · Strike Fast. Trade Smart. · Trading involves risk. Live trading is disabled.</footer></main>}
